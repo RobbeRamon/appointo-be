@@ -7,6 +7,7 @@ namespace Appointo_BE.Model
 {
     public class Treatment
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public TimeSpan Duration { get; set; }
     }

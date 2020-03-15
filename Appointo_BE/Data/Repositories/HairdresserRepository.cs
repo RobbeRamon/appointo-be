@@ -1,4 +1,5 @@
 ﻿using Appointo_BE.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,48 +9,48 @@ namespace Appointo_BE.Data.Repositories
 {
     public class HairdresserRepository : IHairdresserRepository
     {
+        private readonly DbSet<Hairdresser> _hairdressers;
+        private readonly AppointoDbContext _context;
+
+        public HairdresserRepository(AppointoDbContext context)
+        {
+            _context = context;
+            _hairdressers = context.Hairdressers;
+        }
+
         public Hairdresser GetBy(int id)
         {
-            throw new NotImplementedException();
+            return _hairdressers.SingleOrDefault(hd => hd.Id == id);
         }
 
         public IEnumerable<Hairdresser> GetBy(string name = null, string location = null)
         {
-            throw new NotImplementedException();
+            return _hairdressers.Where(hd => hd.Name == name).AsNoTracking().ToList();
         }
     
         public IEnumerable<Hairdresser> GetAll()
         {
-            Hairdresser hairdresser1 = new Hairdresser { Name = "Hairlounge Marlies", Id = 0};
-            Hairdresser hairdresser2 = new Hairdresser { Name = "Nika", Id = 1 };
-
-            List<Hairdresser> hairdressers = new List<Hairdresser>();
-            hairdressers.Add(hairdresser1);
-            hairdressers.Add(hairdresser2);
-
-            return hairdressers;
+            return _hairdressers.AsNoTracking().ToList();
         }
 
         public void Add(Hairdresser hairdresser)
         {
-            throw new NotImplementedException();
+            _hairdressers.Add(hairdresser);
         }
 
         public void Delete(Hairdresser hairdresser)
         {
-            throw new NotImplementedException();
+            _hairdressers.Remove(hairdresser);
         }
 
         public void Update(Hairdresser hairdresser)
         {
-            throw new NotImplementedException();
+            _hairdressers.Update(hairdresser);
         }
 
         public void SaveChanges()
         {
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
-
-
     }
 }

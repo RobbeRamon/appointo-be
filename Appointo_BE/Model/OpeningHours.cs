@@ -18,28 +18,26 @@ namespace Appointo_BE.Model
 
     public class OpeningHours
     {
-        public Dictionary<string, List<Time>> Hours { get; set; }
+        public int Id { get; set; }
+        public IList<WorkDay> WorkDays { get; set; }
 
         public OpeningHours()
         {
-            Hours = new Dictionary<String, List<Time>>();
+            WorkDays = new List<WorkDay>();
             FillHours();
         }
 
         public void EditHoursOfDay(Day day, List<Time> hours)
         {
-            this.Hours[day.ToString()] = hours;
+            this.WorkDays.Single(wd => wd.Day == day).Hours = hours;
         }
 
         private void FillHours()
         {
-            Hours.Add(Day.MONDAY.ToString(), null);
-            Hours.Add(Day.TUESDAY.ToString(), null);
-            Hours.Add(Day.WEDNESDAY.ToString(), null);
-            Hours.Add(Day.THURSDAY.ToString(), null);
-            Hours.Add(Day.FRIDAY.ToString(), null);
-            Hours.Add(Day.SATERDAY.ToString(), null);
-            Hours.Add(Day.SUNDAY.ToString(), null);
+            var days = Enum.GetValues(typeof(Day));
+
+            foreach (Day day in days)
+                WorkDays.Add(new WorkDay(day));
         }
     }
 }

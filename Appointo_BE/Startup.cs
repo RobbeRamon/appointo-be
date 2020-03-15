@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Appointo_BE.Data;
 using Appointo_BE.Data.Repositories;
 using Appointo_BE.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,7 +30,10 @@ namespace Appointo_BE
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDbContext<AppointoDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("AppointoDbContext")));
 
+            services.AddScoped<AppointoDataInitializer>();
             services.AddScoped<IHairdresserRepository, HairdresserRepository>();
             // Register the Swagger services
             services.AddOpenApiDocument(c =>
@@ -41,7 +46,7 @@ namespace Appointo_BE
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, AppointoDataInitializer appointoDataInitializer)
         {
             if (env.IsDevelopment())
             {
@@ -62,6 +67,8 @@ namespace Appointo_BE
             {
                 endpoints.MapControllers();
             });
+
+            appointoDataInitializer.InitializeData(); //.Wait();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Appointo_BE.Model;
+﻿using Appointo_BE.Data.Mapper;
+using Appointo_BE.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,11 +14,15 @@ namespace Appointo_BE.Data
 
         public AppointoDbContext(DbContextOptions<AppointoDbContext> options) : base(options) { }
 
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(builder);
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new HairdresserConfiguration());
+            modelBuilder.ApplyConfiguration(new AppointmentConfiguration());
+            modelBuilder.ApplyConfiguration(new WorkDayConfiguration());
+            modelBuilder.ApplyConfiguration(new TreatmentConfiguration());
+            modelBuilder.ApplyConfiguration(new TimeConfiguration());
+            modelBuilder.ApplyConfiguration(new OpeningHoursConfiguration());
         }
-
-        
     }
 }

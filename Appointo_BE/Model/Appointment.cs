@@ -7,6 +7,7 @@ namespace Appointo_BE.Model
 {
     public class Appointment
     {
+        public int Id { get; set; }
         public IList<Treatment> Treatments { get; set; }
 
         public TimeSpan TotalDuration
@@ -19,5 +20,5 @@ namespace Appointo_BE.Model
             }
         }
 
-}   
+    }   
 }
