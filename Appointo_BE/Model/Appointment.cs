@@ -7,5 +7,17 @@ namespace Appointo_BE.Model
 {
     public class Appointment
     {
-    }
+        public IList<Treatment> Treatments { get; set; }
+
+        public TimeSpan TotalDuration
+        {
+            get 
+            {
+                TimeSpan totalDuration = new TimeSpan();
+                foreach (Treatment tr in Treatments) totalDuration.Add(tr.Duration);
+                return totalDuration;
+            }
+        }
+
+}   
 }
