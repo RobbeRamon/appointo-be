@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Appointo_BE.Data.Repositories;
+using Appointo_BE.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +28,16 @@ namespace Appointo_BE
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddScoped<IHairdresserRepository, HairdresserRepository>();
+            // Register the Swagger services
+            services.AddOpenApiDocument(c =>
+            {
+                c.DocumentName = "apidocs";
+                c.Title = "Recipe API";
+                c.Version = "v1";
+                c.Description = "The Recipe API documentation description.";
+            }); //for OpenAPI 3.0 else AddSwaggerDocument();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,6 +49,10 @@ namespace Appointo_BE
             }
 
             app.UseHttpsRedirection();
+
+            // Register the Swagger generator and the Swagger UI middlewares
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
 
             app.UseRouting();
 
