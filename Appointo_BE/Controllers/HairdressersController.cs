@@ -48,5 +48,16 @@ namespace Appointo_BE.Controllers
 
             return CreatedAtAction(nameof(GetHairdresser), new { hairdresserToCreate.Id }, hairdresserToCreate);
         }
+
+        [HttpPut]
+        public ActionResult<Hairdresser> PutHairdresser(int id, Hairdresser hairdresser)
+        {
+            if (id != hairdresser.Id)
+                return BadRequest();
+            _hairdresserRepository.Update(hairdresser);
+            _hairdresserRepository.SaveChanges();
+
+            return NoContent();
+        }
     }
 }   
