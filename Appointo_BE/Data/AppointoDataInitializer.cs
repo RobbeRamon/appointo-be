@@ -24,8 +24,12 @@ namespace Appointo_BE.Data
                 Hairdresser hairdresser1 = new Hairdresser { Name = "Hairlounge Marlies"};
                 Hairdresser hairdresser2 = new Hairdresser { Name = "Nika"};
 
+                Treatment treatment = new Treatment("Knippen", new TimeSpan(0,20,0));
+
+                hairdresser1.AddTreatment(treatment);
+
                 _dbContext.Add(hairdresser1);
-               _dbContext.Add(hairdresser2);
+                _dbContext.Add(hairdresser2);
             }
 
             _dbContext.SaveChanges();

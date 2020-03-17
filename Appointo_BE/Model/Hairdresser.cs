@@ -20,6 +20,9 @@ namespace Appointo_BE.Model
         public Hairdresser()
         {
             OpeningHours = new OpeningHours();
+            Treatments = new List<Treatment>();
+            Appointments = new List<Appointment>();
+
             List<Time> hoursMonday = new List<Time>();
             hoursMonday.Add(new Time(7, 30, 0));
             hoursMonday.Add(new Time(12, 30, 0));
@@ -27,6 +30,11 @@ namespace Appointo_BE.Model
             hoursMonday.Add(new Time(18, 30, 0));
 
             OpeningHours.EditHoursOfDay(Day.MONDAY, hoursMonday);
+        }
+
+        public void AddTreatment(Treatment treatment)
+        {
+            Treatments.Add(treatment);
         }
     }
 }

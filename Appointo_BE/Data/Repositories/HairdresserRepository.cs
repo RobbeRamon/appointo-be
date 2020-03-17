@@ -20,17 +20,25 @@ namespace Appointo_BE.Data.Repositories
 
         public Hairdresser GetBy(int id)
         {
-            return _hairdressers.SingleOrDefault(hd => hd.Id == id);
+            return _hairdressers
+                .Include(hd => hd.Treatments)
+                .SingleOrDefault(hd => hd.Id == id);
         }
 
         public IEnumerable<Hairdresser> GetBy(string name = null, string location = null)
         {
-            return _hairdressers.Where(hd => hd.Name == name).AsNoTracking().ToList();
+            return _hairdressers.Where(hd => hd.Name == name)
+                                .Include(hd => hd.Treatments)
+                                .AsNoTracking()
+                                .ToList();
         }
     
         public IEnumerable<Hairdresser> GetAll()
         {
-            return _hairdressers.AsNoTracking().ToList();
+            return _hairdressers
+                .Include(hd => hd.Treatments)
+                .AsNoTracking()
+                .ToList();
         }
 
         public void Add(Hairdresser hairdresser)

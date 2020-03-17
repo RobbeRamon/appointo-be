@@ -11,7 +11,10 @@ namespace Appointo_BE.Data.Mapper
             builder.ToTable(nameof(Hairdresser));
 
             builder.HasKey(hd => hd.Id);
-            builder.HasMany(hd => hd.Appointments);
+            builder.HasMany(hd => hd.Appointments)
+                    .WithOne();
+            builder.HasMany(hd => hd.Treatments)
+                    .WithOne();
         }
     }
 }
