@@ -49,7 +49,7 @@ namespace Appointo_BE.Controllers
             return CreatedAtAction(nameof(GetHairdresser), new { hairdresserToCreate.Id }, hairdresserToCreate);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public ActionResult<Hairdresser> PutHairdresser(int id, Hairdresser hairdresser)
         {
             if (id != hairdresser.Id)
@@ -58,6 +58,36 @@ namespace Appointo_BE.Controllers
             _hairdresserRepository.SaveChanges();
 
             return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteHairdresser(int id)
+        {
+            Hairdresser hairdresser = _hairdresserRepository.GetBy(id);
+
+            if (hairdresser == null)
+                return NotFound();
+
+            _hairdresserRepository.Delete(hairdresser);
+            _hairdresserRepository.SaveChanges();
+
+            return NoContent();
+        }
+
+        [HttpGet("{id}/appointments/{appointmentId}")]
+        public ActionResult<Appointment> GetAppointment(int id, int appointmentId)
+        {
+            Hairdresser hairdresser = _hairdresserRepository.GetBy(id);
+
+            if (hairdresser == null)
+                return NotFound();
+
+            Appointment appointment = hairdresser.GetAppointment(appointmentId);
+
+            if (appointment == null)
+                return NotFound();
+
+            return appointment;
         }
     }
 }   

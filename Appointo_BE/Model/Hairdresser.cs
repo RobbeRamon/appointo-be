@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Appointo_BE.Model
 {
@@ -35,6 +36,11 @@ namespace Appointo_BE.Model
         public void AddTreatment(Treatment treatment)
         {
             Treatments.Add(treatment);
+        }
+
+        public Appointment GetAppointment(int id)
+        {
+            return Appointments.FirstOrDefault(app => app.Id == id);
         }
     }
 }
