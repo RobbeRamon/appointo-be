@@ -10,7 +10,7 @@ namespace Appointo_BE.DTOs
     public class AppointmentDTO
     {
         [Required]
-        public DateTime StartTime { get; set; }
+        public DateTime StartMoment { get; set; }
         [Required]
         public IList<int> TreatmentIds { get; set; }
     }

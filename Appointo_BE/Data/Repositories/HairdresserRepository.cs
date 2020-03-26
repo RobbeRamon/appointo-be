@@ -22,6 +22,11 @@ namespace Appointo_BE.Data.Repositories
         {
             return _hairdressers
                 .Include(hd => hd.Treatments)
+                .Include(hd => hd.Appointments)
+                    .ThenInclude(hd => hd.Treatments)
+                .Include(hd => hd.OpeningHours)
+                    .ThenInclude(hd => hd.WorkDays)
+                    .ThenInclude(hd => hd.Hours)
                 .SingleOrDefault(hd => hd.Id == id);
         }
 
@@ -29,6 +34,11 @@ namespace Appointo_BE.Data.Repositories
         {
             return _hairdressers.Where(hd => hd.Name == name)
                                 .Include(hd => hd.Treatments)
+                                .Include(hd => hd.Appointments)
+                                    .ThenInclude(hd => hd.Treatments)
+                                .Include(hd => hd.OpeningHours)
+                                    .ThenInclude(hd => hd.WorkDays)
+                                    .ThenInclude(hd => hd.Hours)
                                 .AsNoTracking()
                                 .ToList();
         }
@@ -37,6 +47,11 @@ namespace Appointo_BE.Data.Repositories
         {
             return _hairdressers
                 .Include(hd => hd.Treatments)
+                .Include(hd => hd.Appointments)
+                    .ThenInclude(hd => hd.Treatments)
+                .Include(hd => hd.OpeningHours)
+                    .ThenInclude(hd => hd.WorkDays)
+                    .ThenInclude(hd => hd.Hours)
                 .AsNoTracking()
                 .ToList();
         }

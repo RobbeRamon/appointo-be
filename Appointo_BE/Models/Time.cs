@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Appointo_BE.Models
 {
-    public class Time
+    public class Time : ICloneable
     {
         public int Id { get; set; }
         public int Hour { get; set; }
@@ -18,6 +18,11 @@ namespace Appointo_BE.Models
             this.Hour = hour;
             this.Minute = minute;
             this.Second = second;
+        }
+
+        public object Clone()
+        {
+            return new Time(Hour, Minute, Second);
         }
     }
 }

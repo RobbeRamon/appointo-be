@@ -14,9 +14,10 @@ namespace Appointo_BE.Models
 
         protected Appointment(){}
 
-        public Appointment(IList<Treatment> treatments)
+        public Appointment(IList<Treatment> treatments, DateTime startMoment)
         {
             Treatments = treatments;
+            StartMoment = startMoment;
         }
 
         public TimeSpan TotalDuration
@@ -24,7 +25,7 @@ namespace Appointo_BE.Models
             get 
             {
                 TimeSpan totalDuration = new TimeSpan();
-                foreach (Treatment tr in Treatments) totalDuration.Add(tr.Duration);
+                foreach (Treatment tr in Treatments) totalDuration = totalDuration.Add(tr.Duration);
                 return totalDuration;
             }
         }

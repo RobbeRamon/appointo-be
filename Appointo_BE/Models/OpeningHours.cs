@@ -13,26 +13,26 @@ namespace Appointo_BE.Models
         public OpeningHours()
         {
             WorkDays = new List<WorkDay>();
-            FillHours();
+            //FillHours();
         }
 
-        public OpeningHours(IList<WorkDay> workDays)
-        {
+        //public OpeningHours(IList<WorkDay> workDays)
+        //{
 
-            FillHours();
-        }
+        //    FillHours();
+        //}
 
         public void EditHoursOfDay(DayOfWeek day, List<Time> hours)
         {
             this.WorkDays.Single(wd => wd.Day == day).Hours = hours;
         }
 
-        private void FillHours()
-        {
-            var days = Enum.GetValues(typeof(DayOfWeek));
+        //private void FillHours()
+        //{
+        //    var days = Enum.GetValues(typeof(DayOfWeek));
 
-            foreach (DayOfWeek day in days)
-                WorkDays.Add(new WorkDay(day));
-        }
+        //    foreach (DayOfWeek day in days)
+        //        WorkDays.Add(new WorkDay(day));
+        //}
     }
 }

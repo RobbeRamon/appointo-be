@@ -116,7 +116,7 @@ namespace Appointo_BE.Controllers
             foreach (int treatmentId in appointment.TreatmentIds)
                 treatments.Add(hairdresser.GetTreatment(treatmentId));
 
-            Appointment appointmentToCreate = new Appointment(treatments);
+            Appointment appointmentToCreate = new Appointment(treatments, appointment.StartMoment);
 
             bool result = hairdresser.AddAppointment(appointmentToCreate);
 
@@ -125,7 +125,7 @@ namespace Appointo_BE.Controllers
 
             _hairdresserRepository.SaveChanges();
 
-            return CreatedAtAction(nameof(Appointment), new { appointmentToCreate.Id }, appointmentToCreate);
+            return appointmentToCreate;
         }
     }
 }   

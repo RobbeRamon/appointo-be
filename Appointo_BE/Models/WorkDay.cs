@@ -13,9 +13,10 @@ namespace Appointo_BE.Models
 
         protected WorkDay() { }
 
-        public WorkDay(DayOfWeek day, IList<Time> Hours)
+        public WorkDay(DayOfWeek day, IList<Time> hours)
         {
             Day = day;
+            Hours = hours;
         }
     }
 }

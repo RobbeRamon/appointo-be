@@ -25,17 +25,17 @@ namespace Appointo_BE.Models
             Name = name;
             Treatments = treatments;
             OpeningHours = new OpeningHours { WorkDays = workDays };
-            OpeningHours = new OpeningHours();
-            Treatments = new List<Treatment>();
             Appointments = new List<Appointment>();
 
-            List<Time> hoursMonday = new List<Time>();
-            hoursMonday.Add(new Time(7, 30, 0));
-            hoursMonday.Add(new Time(12, 30, 0));
-            hoursMonday.Add(new Time(13, 30, 0));
-            hoursMonday.Add(new Time(18, 30, 0));
+            OpeningHours.WorkDays = workDays;
 
-            OpeningHours.EditHoursOfDay(DayOfWeek.Monday, hoursMonday);
+            //List<Time> hoursMonday = new List<Time>();
+            //hoursMonday.Add(new Time(7, 30, 0));
+            //hoursMonday.Add(new Time(12, 30, 0));
+            //hoursMonday.Add(new Time(13, 30, 0));
+            //hoursMonday.Add(new Time(18, 30, 0));
+
+            //OpeningHours.EditHoursOfDay(DayOfWeek.Monday, hoursMonday);
         }
 
         public Appointment GetAppointment(int id)
@@ -79,7 +79,7 @@ namespace Appointo_BE.Models
 
             for (int i = 0; i < workDay.Count; i++)
             {
-                openingHours[i] = new DateTime(appointment.StartMoment.Year, appointment.StartMoment.Month, appointment.StartMoment.Day, workDay[i].Hour, workDay[i].Minute, workDay[i].Second);
+                openingHours.Add(new DateTime(appointment.StartMoment.Year, appointment.StartMoment.Month, appointment.StartMoment.Day, workDay[i].Hour, workDay[i].Minute, workDay[i].Second));
             }
 
             for (int i = 0; i < openingHours.Count; i++)
@@ -93,7 +93,7 @@ namespace Appointo_BE.Models
                     flags.Add(false);
             }
 
-            return (flags.Contains(true));
+            return (!flags.Contains(true));
         }
 
         private bool OverlappingWithAppointment(Appointment appointment)
