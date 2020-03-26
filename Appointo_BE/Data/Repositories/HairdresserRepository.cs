@@ -1,4 +1,4 @@
-﻿using Appointo_BE.Model;
+﻿using Appointo_BE.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

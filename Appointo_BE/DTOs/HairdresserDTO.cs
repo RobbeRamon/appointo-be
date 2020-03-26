@@ -1,4 +1,4 @@
-﻿using Appointo_BE.Model;
+﻿using Appointo_BE.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +9,7 @@ namespace Appointo_BE.DTOs
     public class HairdresserDTO
     {
         public string Name { get; set; }
-        public IList<TreatmentDTO> Treatments { get; set; }
+        public IList<Treatment> Treatments { get; set; }
+        public WorkDaysDTO WorkDays { get; set; }
     }
 }

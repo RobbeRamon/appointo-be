@@ -3,12 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Appointo_BE.Model
+namespace Appointo_BE.Models
 {
     public class Appointment
     {
         public int Id { get; set; }
         public IList<Treatment> Treatments { get; set; }
+        public DateTime StartMoment { get; set; }
+        public DateTime EndMoment => StartMoment.Add(TotalDuration);
+
+        protected Appointment(){}
+
+        public Appointment(IList<Treatment> treatments)
+        {
+            Treatments = treatments;
+        }
 
         public TimeSpan TotalDuration
         {

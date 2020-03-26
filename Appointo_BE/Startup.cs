@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Appointo_BE.Data;
 using Appointo_BE.Data.Repositories;
-using Appointo_BE.Model;
+using Appointo_BE.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Appointo_BE.DTOs;
-using Appointo_BE.Model;
+using Appointo_BE.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,14 +32,27 @@ namespace Appointo_BE.Controllers
         public ActionResult<Hairdresser> GetHairdresser(int id)
         {
             Hairdresser hairdresser = _hairdresserRepository.GetBy(id);
-            if (hairdresser == null) return NotFound();
+
+            if (hairdresser == null)
+                return NotFound();
+
             return hairdresser;
         }
 
         [HttpPost]
         public ActionResult<Hairdresser> PostHairdresser(HairdresserDTO hairdresser)
         {
-            Hairdresser hairdresserToCreate = new Hairdresser() { Name = hairdresser.Name };
+            IList<WorkDay> workDays = new List<WorkDay>();
+            workDays.Add(new WorkDay(DayOfWeek.Monday, hairdresser.WorkDays.Monday));
+            workDays.Add(new WorkDay(DayOfWeek.Tuesday, hairdresser.WorkDays.Tuesday));
+            workDays.Add(new WorkDay(DayOfWeek.Wednesday, hairdresser.WorkDays.Wednesday));
+            workDays.Add(new WorkDay(DayOfWeek.Thursday, hairdresser.WorkDays.Thursday));
+            workDays.Add(new WorkDay(DayOfWeek.Friday, hairdresser.WorkDays.Friday));
+            workDays.Add(new WorkDay(DayOfWeek.Saturday, hairdresser.WorkDays.Saturday));
+            workDays.Add(new WorkDay(DayOfWeek.Sunday, hairdresser.WorkDays.Sunday));
+
+            Hairdresser hairdresserToCreate = new Hairdresser(hairdresser.Name, hairdresser.Treatments, workDays);
+
             foreach (var i in hairdresser.Treatments)
                 hairdresserToCreate.AddTreatment(new Treatment(i.Name, new TimeSpan(i.Duration.Hours, i.Duration.Minutes, i.Duration.Seconds)));
 
@@ -54,6 +67,7 @@ namespace Appointo_BE.Controllers
         {
             if (id != hairdresser.Id)
                 return BadRequest();
+
             _hairdresserRepository.Update(hairdresser);
             _hairdresserRepository.SaveChanges();
 
@@ -88,6 +102,30 @@ namespace Appointo_BE.Controllers
                 return NotFound();
 
             return appointment;
+        }
+
+        [HttpPost("{id}/appointments")]
+        public ActionResult<Appointment> PostAppointment(int id, AppointmentDTO appointment)
+        {
+            Hairdresser hairdresser = _hairdresserRepository.GetBy(id);
+
+            if (hairdresser == null)
+                return NotFound();
+
+            IList<Treatment> treatments = new List<Treatment>();
+            foreach (int treatmentId in appointment.TreatmentIds)
+                treatments.Add(hairdresser.GetTreatment(treatmentId));
+
+            Appointment appointmentToCreate = new Appointment(treatments);
+
+            bool result = hairdresser.AddAppointment(appointmentToCreate);
+
+            if (result == false)
+                return BadRequest();
+
+            _hairdresserRepository.SaveChanges();
+
+            return CreatedAtAction(nameof(Appointment), new { appointmentToCreate.Id }, appointmentToCreate);
         }
     }
 }   

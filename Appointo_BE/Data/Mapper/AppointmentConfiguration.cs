@@ -1,4 +1,4 @@
-﻿using Appointo_BE.Model;
+﻿using Appointo_BE.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

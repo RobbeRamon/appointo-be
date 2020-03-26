@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Appointo_BE.Model
+namespace Appointo_BE.Models
 {
     public class WorkDay
     {
         public int Id { get; set; }
-        public Day Day { get; set; }
+        public DayOfWeek Day { get; set; }
         public IList<Time> Hours { get; set; }
 
-        public WorkDay(Day day)
+        protected WorkDay() { }
+
+        public WorkDay(DayOfWeek day, IList<Time> Hours)
         {
             Day = day;
         }
