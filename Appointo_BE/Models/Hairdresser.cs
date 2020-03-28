@@ -73,6 +73,24 @@ namespace Appointo_BE.Models
             Appointments.Remove(appointment);
         }
 
+        public bool UpdateTreatment(Treatment treatment)
+        {
+            Treatment treatment1 = Treatments.SingleOrDefault(tr => tr.Id == treatment.Id);
+
+            if (treatment1 == null)
+                return false;
+
+            treatment1.Name = treatment.Name;
+            treatment1.Duration = treatment.Duration;
+
+            return true;
+        }
+
+        public void RemoveTreatment(Treatment treatment)
+        {
+            Treatments.Remove(treatment);
+        }
+
         private bool NotInOpeningHours(Appointment appointment)
         {
             IList<DateTime> openingHours = new List<DateTime>();

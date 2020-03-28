@@ -20,6 +20,8 @@ namespace Appointo_BE.Controllers
             _hairdresserRepository = repo;
         }
 
+        #region Hairdressers
+        
         [HttpGet]
         public IEnumerable<Hairdresser> GetHairdressers(string name = null, string location = null)
         {
@@ -87,6 +89,10 @@ namespace Appointo_BE.Controllers
 
             return NoContent();
         }
+
+        #endregion
+
+        #region Appointments
 
         [HttpGet("{id}/appointments")]
         public ActionResult<IEnumerable<Appointment>> GetAppointments(int id)
@@ -159,5 +165,90 @@ namespace Appointo_BE.Controllers
 
             return NoContent();
         }
+
+        #endregion
+
+        #region Treatments
+
+        [HttpGet("{id}/treatments")]
+        public ActionResult<IEnumerable<Treatment>> GetTreatments(int id)
+        {
+            Hairdresser hairdresser = _hairdresserRepository.GetBy(id);
+
+            if (hairdresser == null)
+                return NotFound();
+
+            return Ok(hairdresser.Treatments);
+        }
+
+        [HttpGet("{id}/treatments/{treatmentId}")]
+        public ActionResult<Treatment> GetTreatment(int id, int treatmentId)
+        {
+            Hairdresser hairdresser = _hairdresserRepository.GetBy(id);
+
+            if (hairdresser == null)
+                return NotFound();
+
+            Treatment treatment = hairdresser.GetTreatment(treatmentId);
+
+            if (treatment == null)
+                return NotFound();
+
+            return treatment;
+        }
+
+        [HttpPost("{id}/treatments")]
+        public ActionResult<Treatment> PostTreatment(int id, Treatment treatment)
+        {
+            Hairdresser hairdresser = _hairdresserRepository.GetBy(id);
+
+            if (hairdresser == null)
+                return NotFound();
+
+            hairdresser.AddTreatment(treatment);
+
+            return CreatedAtAction(nameof(GetTreatment), new { treatment.Id }, treatment);
+        }
+
+        [HttpPut("{id}/treatments/{treatmentId}")]
+        public ActionResult<Treatment> PutTreatment(int id, int treatmentId, Treatment treatment)
+        {
+            if (id != treatment.Id)
+                return BadRequest();
+
+            Hairdresser hairdresser = _hairdresserRepository.GetBy(id);
+
+            if (hairdresser == null)
+                return NotFound();
+
+            bool result = hairdresser.UpdateTreatment(treatment);
+
+            if (result == false)
+                return NotFound();
+
+            _hairdresserRepository.SaveChanges();
+            return NoContent();
+        }
+
+        [HttpDelete("{id}/treatments/{treatmentId}")]
+        public IActionResult DeleteTreatment(int id, int treatmentId)
+        {
+            Hairdresser hairdresser = _hairdresserRepository.GetBy(id);
+
+            if (hairdresser == null)
+                return NotFound();
+
+            Treatment treatment = hairdresser.GetTreatment(treatmentId);
+
+            if (treatment == null)
+                return NotFound();
+
+            hairdresser.RemoveTreatment(treatment);
+            _hairdresserRepository.SaveChanges();
+
+            return NoContent();
+        }
+
+        #endregion
     }
 }   
