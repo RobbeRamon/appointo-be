@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Appointo_BE.Models
+{
+    public class AppointmentTreatment
+    {
+        public int AppointmentId { get; set; }
+        public Appointment Appointment { get; set; }
+
+        public int TreatmentId { get; set; }
+        public Treatment Treatment { get; set; }
+
+        protected AppointmentTreatment() {}
+
+        public AppointmentTreatment(Appointment appointment, Treatment treatment)
+        {
+            Appointment = appointment;
+            Treatment = treatment;
+        }
+    }
+}

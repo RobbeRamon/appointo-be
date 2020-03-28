@@ -23,6 +23,7 @@ namespace Appointo_BE.Data
             modelBuilder.ApplyConfiguration(new TreatmentConfiguration());
             modelBuilder.ApplyConfiguration(new TimeConfiguration());
             modelBuilder.ApplyConfiguration(new OpeningHoursConfiguration());
+            modelBuilder.ApplyConfiguration(new AppointmentTreatmentConfiguration());
         }
     }
 }

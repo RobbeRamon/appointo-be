@@ -9,6 +9,8 @@ namespace Appointo_BE.Data.Mapper
         public void Configure(EntityTypeBuilder<Appointment> builder)
         {
             builder.HasKey(a => a.Id);
+            
+            
         }
     }
 }

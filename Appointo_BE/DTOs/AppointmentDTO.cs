@@ -12,6 +12,6 @@ namespace Appointo_BE.DTOs
         [Required]
         public DateTime StartMoment { get; set; }
         [Required]
-        public IList<int> TreatmentIds { get; set; }
+        public IList<Treatment> Treatments { get; set; }
     }
 }

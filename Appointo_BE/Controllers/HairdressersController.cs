@@ -88,6 +88,17 @@ namespace Appointo_BE.Controllers
             return NoContent();
         }
 
+        [HttpGet("{id}/appointments")]
+        public ActionResult<IEnumerable<Appointment>> GetAppointments(int id)
+        {
+            Hairdresser hairdresser = _hairdresserRepository.GetBy(id);
+
+            if (hairdresser == null)
+                return NotFound();
+
+            return Ok(hairdresser.Appointments.Select(a => new AppointmentDTO() { StartMoment = a.StartMoment, Treatments = a.Treatments.Select(tr => tr.Treatment).ToList() }).ToList());
+        }
+
         [HttpGet("{id}/appointments/{appointmentId}")]
         public ActionResult<Appointment> GetAppointment(int id, int appointmentId)
         {
@@ -105,7 +116,7 @@ namespace Appointo_BE.Controllers
         }
 
         [HttpPost("{id}/appointments")]
-        public ActionResult<Appointment> PostAppointment(int id, AppointmentDTO appointment)
+        public ActionResult<AppointmentDTO> PostAppointment(int id, AppointmentDTO appointment)
         {
             Hairdresser hairdresser = _hairdresserRepository.GetBy(id);
 
@@ -113,8 +124,8 @@ namespace Appointo_BE.Controllers
                 return NotFound();
 
             IList<Treatment> treatments = new List<Treatment>();
-            foreach (int treatmentId in appointment.TreatmentIds)
-                treatments.Add(hairdresser.GetTreatment(treatmentId));
+            foreach (Treatment tr in appointment.Treatments)
+                treatments.Add(hairdresser.GetTreatment(tr.Id));
 
             Appointment appointmentToCreate = new Appointment(treatments, appointment.StartMoment);
 
@@ -125,7 +136,8 @@ namespace Appointo_BE.Controllers
 
             _hairdresserRepository.SaveChanges();
 
-            return appointmentToCreate;
+
+            return new AppointmentDTO() { StartMoment = appointmentToCreate.StartMoment, Treatments = appointmentToCreate.Treatments.Select(tr => tr.Treatment).ToList() };
         }
     }
 }   
