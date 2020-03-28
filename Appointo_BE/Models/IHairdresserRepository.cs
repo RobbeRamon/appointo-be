@@ -9,7 +9,7 @@ namespace Appointo_BE.Models
     {
         Hairdresser GetBy(int id);
         IEnumerable<Hairdresser> GetAll();
-        IEnumerable<Hairdresser> GetBy(string name = null, string location = null);
+        IEnumerable<Hairdresser> GetBy(string name = null);
         void Add(Hairdresser hairdresser);
         void Delete(Hairdresser hairdresser);
         void Update(Hairdresser hairdresser);

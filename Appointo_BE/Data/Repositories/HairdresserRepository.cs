@@ -31,7 +31,7 @@ namespace Appointo_BE.Data.Repositories
                 .SingleOrDefault(hd => hd.Id == id);
         }
 
-        public IEnumerable<Hairdresser> GetBy(string name = null, string location = null)
+        public IEnumerable<Hairdresser> GetBy(string name = null)
         {
             return _hairdressers.Where(hd => hd.Name == name)
                                 .Include(hd => hd.Treatments)

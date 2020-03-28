@@ -21,15 +21,26 @@ namespace Appointo_BE.Controllers
         }
 
         #region Hairdressers
-        
+        // GET: api/Hairdressers
+        /// <summary>
+        /// Get all hairdressers
+        /// </summary>
+        /// <param name="name">Filter by name</param>
+        /// <returns>Array of hairdressers</returns>
         [HttpGet]
-        public IEnumerable<Hairdresser> GetHairdressers(string name = null, string location = null)
+        public IEnumerable<Hairdresser> GetHairdressers(string name = null)
         {
-            if (string.IsNullOrEmpty(name) && string.IsNullOrEmpty(location))
+            if (string.IsNullOrEmpty(name))
                 return _hairdresserRepository.GetAll();
-            else return _hairdresserRepository.GetBy(name, location);
+            else return _hairdresserRepository.GetBy(name);
         }
 
+        // GET: api/Hairdressers/1
+        /// <summary>
+        /// Get the hairdresser with the given id
+        /// </summary>
+        /// <param name="id">The id of the hairdresser</param>
+        /// <returns>The hairdresser</returns>
         [HttpGet("{id}")]
         public ActionResult<Hairdresser> GetHairdresser(int id)
         {

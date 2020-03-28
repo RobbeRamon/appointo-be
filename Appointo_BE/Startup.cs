@@ -39,10 +39,11 @@ namespace Appointo_BE
             services.AddOpenApiDocument(c =>
             {
                 c.DocumentName = "apidocs";
-                c.Title = "Recipe API";
+                c.Title = "Hairdresser API";
                 c.Version = "v1";
-                c.Description = "The Recipe API documentation description.";
+                c.Description = "An appointment system for hairdressers.";
             }); //for OpenAPI 3.0 else AddSwaggerDocument();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
