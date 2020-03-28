@@ -68,6 +68,11 @@ namespace Appointo_BE.Models
             
         }
 
+        public void RemoveAppointment(Appointment appointment)
+        {
+            Appointments.Remove(appointment);
+        }
+
         private bool NotInOpeningHours(Appointment appointment)
         {
             IList<DateTime> openingHours = new List<DateTime>();

@@ -139,5 +139,25 @@ namespace Appointo_BE.Controllers
 
             return new AppointmentDTO() { StartMoment = appointmentToCreate.StartMoment, Treatments = appointmentToCreate.Treatments.Select(tr => tr.Treatment).ToList() };
         }
+
+
+
+        [HttpDelete("{id}/appointments/{appointmentId}")]
+        public IActionResult DeleteAppointment(int id, int appointmentId)
+        {
+            Hairdresser hairdresser = _hairdresserRepository.GetBy(id);
+
+            if (hairdresser == null)
+                return NotFound();
+
+
+            Appointment appointment = hairdresser.GetAppointment(appointmentId);
+
+            hairdresser.RemoveAppointment(appointment);
+
+            _hairdresserRepository.SaveChanges();
+
+            return NoContent();
+        }
     }
 }   
