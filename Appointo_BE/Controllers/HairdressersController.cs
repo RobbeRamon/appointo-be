@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Appointo_BE.Controllers
 {
+    [ApiConventionType(typeof(DefaultApiConventions))]
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class HairdressersController : ControllerBase
@@ -28,11 +30,11 @@ namespace Appointo_BE.Controllers
         /// <param name="name">Filter by name</param>
         /// <returns>An array of hairdressers</returns>
         [HttpGet]
-        public IEnumerable<Hairdresser> GetHairdressers(string name = null)
+        public ActionResult<IEnumerable<Hairdresser>> GetHairdressers(string name = null)
         {
             if (string.IsNullOrEmpty(name))
-                return _hairdresserRepository.GetAll();
-            else return _hairdresserRepository.GetBy(name);
+                return Ok(_hairdresserRepository.GetAll());
+            else return Ok(_hairdresserRepository.GetBy(name));
         }
 
         // GET: api/Hairdressers/1
@@ -49,7 +51,7 @@ namespace Appointo_BE.Controllers
             if (hairdresser == null)
                 return NotFound();
 
-            return hairdresser;
+            return Ok(hairdresser);
         }
 
         /// <summary>
@@ -155,7 +157,7 @@ namespace Appointo_BE.Controllers
             if (appointment == null)
                 return NotFound();
 
-            return appointment;
+            return Ok(appointment);
         }
 
         /// <summary>
@@ -186,7 +188,7 @@ namespace Appointo_BE.Controllers
             _hairdresserRepository.SaveChanges();
 
 
-            return new AppointmentDTO() { StartMoment = appointmentToCreate.StartMoment, Treatments = appointmentToCreate.Treatments.Select(tr => tr.Treatment).ToList() };
+            return Ok(new AppointmentDTO() { StartMoment = appointmentToCreate.StartMoment, Treatments = appointmentToCreate.Treatments.Select(tr => tr.Treatment).ToList() }); // CreatedAtAction() not possible --> bug
         }
 
         /// <summary>
@@ -251,7 +253,7 @@ namespace Appointo_BE.Controllers
             if (treatment == null)
                 return NotFound();
 
-            return treatment;
+            return Ok(treatment);
         }
 
         /// <summary>
@@ -274,7 +276,7 @@ namespace Appointo_BE.Controllers
 
             _hairdresserRepository.SaveChanges();
 
-            return treatmenToCreate;
+            return Ok(treatmenToCreate); // CreatedAtAction() not possible --> bug
         }
 
         /// <summary>
