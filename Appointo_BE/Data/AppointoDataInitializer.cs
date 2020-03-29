@@ -44,12 +44,12 @@ namespace Appointo_BE.Data
                 Treatment treatment = new Treatment("Knippen", new TimeSpan(0, 20, 0));
                 treatments.Add(treatment);
 
+                Appointment appointment = new Appointment(new List<Treatment>() { treatment }, new DateTime(2020, 3, 27, 11,30,0));
 
                 Hairdresser hairdresser1 = new Hairdresser("Hairlounge Marlies", treatments, workDays);
 
-
-
                 hairdresser1.AddTreatment(treatment);
+                hairdresser1.AddAppointment(appointment);
 
                 _dbContext.Add(hairdresser1);
             }
