@@ -26,7 +26,7 @@ namespace Appointo_BE.Controllers
         /// Get all hairdressers
         /// </summary>
         /// <param name="name">Filter by name</param>
-        /// <returns>Array of hairdressers</returns>
+        /// <returns>An array of hairdressers</returns>
         [HttpGet]
         public IEnumerable<Hairdresser> GetHairdressers(string name = null)
         {
@@ -52,6 +52,11 @@ namespace Appointo_BE.Controllers
             return hairdresser;
         }
 
+        /// <summary>
+        /// Add a new hairdresser
+        /// </summary>
+        /// <param name="hairdresser">The object of the hairdresser</param>
+        /// <returns>The new hairdresser</returns>
         [HttpPost]
         public ActionResult<Hairdresser> PostHairdresser(HairdresserDTO hairdresser)
         {
@@ -75,6 +80,12 @@ namespace Appointo_BE.Controllers
             return CreatedAtAction(nameof(GetHairdresser), new { hairdresserToCreate.Id }, hairdresserToCreate);
         }
 
+        /// <summary>
+        /// Modify a hairdresser
+        /// </summary>
+        /// <param name="id">The id of the hairdresser</param>
+        /// <param name="hairdresser">The object of the hairdresser</param>
+        /// <returns>The modified hairdresser</returns>
         [HttpPut("{id}")]
         public ActionResult<Hairdresser> PutHairdresser(int id, Hairdresser hairdresser)
         {
@@ -87,6 +98,10 @@ namespace Appointo_BE.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Delete a hairdresser
+        /// </summary>
+        /// <param name="id">The id of the hairdresser to be deleted</param>
         [HttpDelete("{id}")]
         public IActionResult DeleteHairdresser(int id)
         {
@@ -105,6 +120,11 @@ namespace Appointo_BE.Controllers
 
         #region Appointments
 
+        /// <summary>
+        /// Get all appointments of a haidresser
+        /// </summary>
+        /// <param name="id">The id of the hairdresser</param>
+        /// <returns>An array of appointments</returns>
         [HttpGet("{id}/appointments")]
         public ActionResult<IEnumerable<Appointment>> GetAppointments(int id)
         {
@@ -116,6 +136,12 @@ namespace Appointo_BE.Controllers
             return Ok(hairdresser.Appointments.Select(a => new AppointmentDTO() { StartMoment = a.StartMoment, Treatments = a.Treatments.Select(tr => tr.Treatment).ToList() }).ToList());
         }
 
+        /// <summary>
+        /// Get an appointment of a haidresser
+        /// </summary>
+        /// <param name="id">The id of the hairdresser</param>
+        /// <param name="appointmentId">The id of the appointment</param>
+        /// <returns>The appointment</returns>
         [HttpGet("{id}/appointments/{appointmentId}")]
         public ActionResult<Appointment> GetAppointment(int id, int appointmentId)
         {
@@ -132,6 +158,12 @@ namespace Appointo_BE.Controllers
             return appointment;
         }
 
+        /// <summary>
+        /// Add a new appointment
+        /// </summary>
+        /// <param name="id">The id of the hairdresser</param>
+        /// <param name="appointment">The object of the appointment</param>
+        /// <returns>The new appointment</returns>
         [HttpPost("{id}/appointments")]
         public ActionResult<AppointmentDTO> PostAppointment(int id, AppointmentDTO appointment)
         {
@@ -157,8 +189,11 @@ namespace Appointo_BE.Controllers
             return new AppointmentDTO() { StartMoment = appointmentToCreate.StartMoment, Treatments = appointmentToCreate.Treatments.Select(tr => tr.Treatment).ToList() };
         }
 
-
-
+        /// <summary>
+        /// Delete an appointment
+        /// </summary>
+        /// <param name="id">The id of the hairdresser</param>
+        /// <param name="appointmentId">The id of the appointment to be deleted</param>
         [HttpDelete("{id}/appointments/{appointmentId}")]
         public IActionResult DeleteAppointment(int id, int appointmentId)
         {
@@ -181,6 +216,11 @@ namespace Appointo_BE.Controllers
 
         #region Treatments
 
+        /// <summary>
+        /// Get all treatments of a hairdresser
+        /// </summary>
+        /// <param name="id">The id of the hairdresser</param>
+        /// <returns>An array of treatments</returns>
         [HttpGet("{id}/treatments")]
         public ActionResult<IEnumerable<Treatment>> GetTreatments(int id)
         {
@@ -192,6 +232,12 @@ namespace Appointo_BE.Controllers
             return Ok(hairdresser.Treatments);
         }
 
+        /// <summary>
+        /// Get a treatment of a hairdresser
+        /// </summary>
+        /// <param name="id">The id of the hairdresser</param>
+        /// <param name="treatmentId">The id of the treatment</param>
+        /// <returns>The treatment</returns>
         [HttpGet("{id}/treatments/{treatmentId}")]
         public ActionResult<Treatment> GetTreatment(int id, int treatmentId)
         {
@@ -208,6 +254,12 @@ namespace Appointo_BE.Controllers
             return treatment;
         }
 
+        /// <summary>
+        /// Add a new treatment
+        /// </summary>
+        /// <param name="id">The id of the hairdresser</param>
+        /// <param name="treatment">The object of the treatment</param>
+        /// <returns>The new treatment</returns>
         [HttpPost("{id}/treatments")]
         public ActionResult<Treatment> PostTreatment(int id, TreatmentDTO treatment)
         {
@@ -225,6 +277,12 @@ namespace Appointo_BE.Controllers
             return treatmenToCreate;
         }
 
+        /// <summary>
+        /// Modify a treatment
+        /// </summary>
+        /// <param name="id">The id of the hairdresser</param>
+        /// <param name="treatmentId">The id of the treatment</param>
+        /// <param name="treatment">The object of the treatment</param>
         [HttpPut("{id}/treatments/{treatmentId}")]
         public ActionResult<Treatment> PutTreatment(int id, int treatmentId, Treatment treatment)
         {
@@ -245,6 +303,11 @@ namespace Appointo_BE.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Delete a treatment
+        /// </summary>
+        /// <param name="id">The id of the hairdresser</param>
+        /// <param name="treatmentId">The id of the treatment to be deleted</param>
         [HttpDelete("{id}/treatments/{treatmentId}")]
         public IActionResult DeleteTreatment(int id, int treatmentId)
         {
