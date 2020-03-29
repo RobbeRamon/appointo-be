@@ -135,6 +135,13 @@
 
 ## Meta
 
+<<<<<<< HEAD
+
 Robbe Ramon -
 [LinkedIn](https://www.linkedin.com/in/robberamon/) -
-[GitHub](https://github.com/RobbeRamon)
+=======
+Robbe Ramon -
+[LinkedIn](https://www.linkedin.com/in/robberamon/) -
+
+> > > > > > > 8feb4ea0849f214ae08e9df91d7dc5dc0a913ff4
+> > > > > > > [GitHub](https://github.com/RobbeRamon)
