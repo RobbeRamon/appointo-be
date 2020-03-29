@@ -159,7 +159,7 @@ namespace Appointo_BE.Controllers
         }
 
         /// <summary>
-        /// Add a new appointment
+        /// Add a new appointment to a hairdresser
         /// </summary>
         /// <param name="id">The id of the hairdresser</param>
         /// <param name="appointment">The object of the appointment</param>
@@ -190,7 +190,7 @@ namespace Appointo_BE.Controllers
         }
 
         /// <summary>
-        /// Delete an appointment
+        /// Delete an appointment of a hairdresser
         /// </summary>
         /// <param name="id">The id of the hairdresser</param>
         /// <param name="appointmentId">The id of the appointment to be deleted</param>
@@ -255,7 +255,7 @@ namespace Appointo_BE.Controllers
         }
 
         /// <summary>
-        /// Add a new treatment
+        /// Add a new treatment to a hairdresser
         /// </summary>
         /// <param name="id">The id of the hairdresser</param>
         /// <param name="treatment">The object of the treatment</param>
@@ -278,7 +278,7 @@ namespace Appointo_BE.Controllers
         }
 
         /// <summary>
-        /// Modify a treatment
+        /// Modify a treatment of a hairdresser
         /// </summary>
         /// <param name="id">The id of the hairdresser</param>
         /// <param name="treatmentId">The id of the treatment</param>
@@ -304,7 +304,7 @@ namespace Appointo_BE.Controllers
         }
 
         /// <summary>
-        /// Delete a treatment
+        /// Delete a treatment of a hairdresser
         /// </summary>
         /// <param name="id">The id of the hairdresser</param>
         /// <param name="treatmentId">The id of the treatment to be deleted</param>
