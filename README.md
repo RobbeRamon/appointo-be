@@ -7,7 +7,7 @@
 - Swagger neemt enkel bij hairdressers alle codes over, bij appointments en treatmnets niet. Ik neem aan dat dat zichzelf zal oplossen van zodra ik appointments en treatments in een eigen controller kan zetten?
 
 ## Requirements backend Web IV
-#### De readme
+### De readme
 
 - [x] Printscreen van de API zoals weergegeven in swagger. Per endpoint een printscreen van de parameters en de responses
 
