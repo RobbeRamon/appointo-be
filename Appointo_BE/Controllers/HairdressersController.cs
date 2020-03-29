@@ -209,28 +209,32 @@ namespace Appointo_BE.Controllers
         }
 
         [HttpPost("{id}/treatments")]
-        public ActionResult<Treatment> PostTreatment(int id, Treatment treatment)
+        public ActionResult<Treatment> PostTreatment(int id, TreatmentDTO treatment)
         {
             Hairdresser hairdresser = _hairdresserRepository.GetBy(id);
 
             if (hairdresser == null)
                 return NotFound();
 
-            hairdresser.AddTreatment(treatment);
+            Treatment treatmenToCreate = new Treatment(treatment.Name, new TimeSpan(treatment.Duration.Hours, treatment.Duration.Minutes, treatment.Duration.Seconds));
 
-            return CreatedAtAction(nameof(GetTreatment), new { treatment.Id }, treatment);
+            hairdresser.AddTreatment(treatmenToCreate);
+
+            _hairdresserRepository.SaveChanges();
+
+            return treatmenToCreate;
         }
 
         [HttpPut("{id}/treatments/{treatmentId}")]
         public ActionResult<Treatment> PutTreatment(int id, int treatmentId, Treatment treatment)
         {
-            if (id != treatment.Id)
-                return BadRequest();
-
             Hairdresser hairdresser = _hairdresserRepository.GetBy(id);
 
             if (hairdresser == null)
                 return NotFound();
+
+            if (treatmentId != treatment.Id)
+                return BadRequest();
 
             bool result = hairdresser.UpdateTreatment(treatment);
 

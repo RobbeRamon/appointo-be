@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace Appointo_BE.DTOs
 {
-    public class TimeSpanDTO
+    public class TreatmentDTO
     {
         [Required]
-        public int Hours { get; set; }
+        public string Name { get; set; }
         [Required]
-        public int Minutes { get; set; }
-        [Required]
-        public int Seconds { get; set; }
+        public TimeSpanDTO Duration { get; set; }
     }
 }
