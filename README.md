@@ -132,16 +132,3 @@
 ##### DeleteTreatment
 
 ![DeleteTreatment](https://i.imgur.com/VImatCC.png)
-
-## Meta
-
-<<<<<<< HEAD
-
-Robbe Ramon -
-[LinkedIn](https://www.linkedin.com/in/robberamon/) -
-=======
-Robbe Ramon -
-[LinkedIn](https://www.linkedin.com/in/robberamon/) -
-
-> > > > > > > 8feb4ea0849f214ae08e9df91d7dc5dc0a913ff4
-> > > > > > > [GitHub](https://github.com/RobbeRamon)
