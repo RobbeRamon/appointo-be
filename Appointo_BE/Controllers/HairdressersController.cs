@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Appointo_BE.DTOs;
+using Appointo_BE.Models;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Appointo_BE.DTOs;
-using Appointo_BE.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Appointo_BE.Controllers
 {
@@ -331,4 +329,4 @@ namespace Appointo_BE.Controllers
 
         #endregion
     }
-}   
+}
