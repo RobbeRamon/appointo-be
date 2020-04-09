@@ -9,7 +9,6 @@ namespace Appointo_BE.Models
     {
         public int Id { get; set; }
         public DayOfWeek Day { get; set; }
-        public IList<Time> Hours2 { get; set; }
         public IList<TimeRange> Hours { get; set; }
 
         protected WorkDay() { }
