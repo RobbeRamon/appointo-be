@@ -22,7 +22,7 @@ namespace Appointo_BE.Models
         //    FillHours();
         //}
 
-        public void EditHoursOfDay(DayOfWeek day, List<Time> hours)
+        public void EditHoursOfDay(DayOfWeek day, List<TimeRange> hours)
         {
             this.WorkDays.Single(wd => wd.Day == day).Hours = hours;
         }

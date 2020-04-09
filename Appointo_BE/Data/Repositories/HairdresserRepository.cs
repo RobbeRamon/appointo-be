@@ -25,9 +25,14 @@ namespace Appointo_BE.Data.Repositories
                 .Include(hd => hd.Appointments)
                     .ThenInclude(hd => hd.Treatments)
                     .ThenInclude(at => at.Treatment)
-                .Include(hd => hd.OpeningHours)
-                    .ThenInclude(hd => hd.WorkDays)
-                    .ThenInclude(hd => hd.Hours)
+                    .Include(hd => hd.OpeningHours)
+                        .ThenInclude(hd => hd.WorkDays)
+                        .ThenInclude(hd => hd.Hours)
+                        .ThenInclude(h => h.StartTime)
+                    .Include(hd => hd.OpeningHours)
+                        .ThenInclude(hd => hd.WorkDays)
+                        .ThenInclude(hd => hd.Hours)
+                        .ThenInclude(h => h.EndTime)
                 .SingleOrDefault(hd => hd.Id == id);
         }
 
@@ -41,6 +46,11 @@ namespace Appointo_BE.Data.Repositories
                                 .Include(hd => hd.OpeningHours)
                                     .ThenInclude(hd => hd.WorkDays)
                                     .ThenInclude(hd => hd.Hours)
+                                    .ThenInclude(h => h.StartTime)
+                                .Include(hd => hd.OpeningHours)
+                                    .ThenInclude(hd => hd.WorkDays)
+                                    .ThenInclude(hd => hd.Hours)
+                                    .ThenInclude(h => h.EndTime)
                                 .AsNoTracking()
                                 .ToList();
         }

@@ -22,22 +22,20 @@ namespace Appointo_BE.Data
             if(_dbContext.Database.EnsureCreated())
             {
 
-                List<Time> workday = new List<Time>();
-                workday.Add(new Time(7, 30, 0));
-                workday.Add(new Time(12, 30, 0));
-                workday.Add(new Time(13, 30, 0));
-                workday.Add(new Time(18, 30, 0));
+                List<TimeRange> workday = new List<TimeRange>();
+                workday.Add(new TimeRange(new Time(7, 30, 0), new Time(12, 30, 0)));
+                workday.Add(new TimeRange(new Time(13, 30, 0), new Time(18, 30, 0)));
 
 
                 IList<WorkDay> workDays = new List<WorkDay>
                 {
                     new WorkDay(DayOfWeek.Monday, workday),
-                    new WorkDay(DayOfWeek.Tuesday, workday.Select(wd => (Time)wd.Clone()).ToList()),
-                    new WorkDay(DayOfWeek.Wednesday, workday.Select(wd => (Time)wd.Clone()).ToList()),
-                    new WorkDay(DayOfWeek.Thursday, workday.Select(wd => (Time)wd.Clone()).ToList()),
-                    new WorkDay(DayOfWeek.Friday, workday.Select(wd => (Time)wd.Clone()).ToList()),
-                    new WorkDay(DayOfWeek.Saturday, new List<Time>()),
-                    new WorkDay(DayOfWeek.Sunday, new List<Time>())
+                    new WorkDay(DayOfWeek.Tuesday, workday.Select(wd => (TimeRange)wd.Clone()).ToList()),
+                    new WorkDay(DayOfWeek.Wednesday, workday.Select(wd => (TimeRange)wd.Clone()).ToList()),
+                    new WorkDay(DayOfWeek.Thursday, workday.Select(wd => (TimeRange)wd.Clone()).ToList()),
+                    new WorkDay(DayOfWeek.Friday, workday.Select(wd => (TimeRange)wd.Clone()).ToList()),
+                    new WorkDay(DayOfWeek.Saturday, new List<TimeRange>()),
+                    new WorkDay(DayOfWeek.Sunday, new List<TimeRange>())
                 };
 
                 IList<Treatment> treatments = new List<Treatment>();

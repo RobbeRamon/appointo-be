@@ -158,6 +158,17 @@ namespace Appointo_BE.Controllers
             return Ok(appointment);
         }
 
+
+        //public ActionResult<Time> GetAvailableTimes(int id, IList<Treatment> treatments)
+        //{
+        //    Hairdresser hairdresser = _hairdresserRepository.GetBy(id);
+
+        //    if (hairdresser == null)
+        //        return NotFound();
+
+        //    hairdresser.GiveAvailableTimes(treatments);
+        //}
+
         /// <summary>
         /// Add a new appointment to a hairdresser
         /// </summary>

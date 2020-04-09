@@ -10,18 +10,18 @@ namespace Appointo_BE.DTOs
     public class WorkDaysDTO
     {
         [Required]
-        public IList<Time> Monday { get; set; }
+        public IList<TimeRange> Monday { get; set; }
         [Required]
-        public IList<Time> Tuesday { get; set; }
+        public IList<TimeRange> Tuesday { get; set; }
         [Required]
-        public IList<Time> Wednesday { get; set; }
+        public IList<TimeRange> Wednesday { get; set; }
         [Required]
-        public IList<Time> Thursday { get; set; }
+        public IList<TimeRange> Thursday { get; set; }
         [Required]
-        public IList<Time> Friday { get; set; }
+        public IList<TimeRange> Friday { get; set; }
         [Required]
-        public IList<Time> Saturday { get; set; }
+        public IList<TimeRange> Saturday { get; set; }
         [Required]
-        public IList<Time> Sunday { get; set; }
+        public IList<TimeRange> Sunday { get; set; }
     }
 }
