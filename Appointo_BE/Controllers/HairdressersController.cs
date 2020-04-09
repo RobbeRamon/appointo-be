@@ -118,6 +118,24 @@ namespace Appointo_BE.Controllers
 
         #endregion
 
+        [HttpPost("{id}/availabletimes")]
+        public ActionResult<IList<DateTime>> GetAvailableTimes(int id, DateTime date, IEnumerable<Treatment> selectedTreatments)
+        {
+            Hairdresser hairdresser = _hairdresserRepository.GetBy(id);
+
+            if (hairdresser == null)
+                return NotFound();
+
+            IList<Treatment> treatments = new List<Treatment>();
+            foreach (Treatment tr in selectedTreatments)
+                treatments.Add(hairdresser.GetTreatment(tr.Id));
+
+            if (treatments.Count < 1)
+                return BadRequest();
+
+            return Ok(hairdresser.GiveAvailableTimesOnDate(date, treatments));
+        }
+
         #region Appointments
 
         /// <summary>
@@ -157,17 +175,6 @@ namespace Appointo_BE.Controllers
 
             return Ok(appointment);
         }
-
-
-        //public ActionResult<Time> GetAvailableTimes(int id, IList<Treatment> treatments)
-        //{
-        //    Hairdresser hairdresser = _hairdresserRepository.GetBy(id);
-
-        //    if (hairdresser == null)
-        //        return NotFound();
-
-        //    hairdresser.GiveAvailableTimes(treatments);
-        //}
 
         /// <summary>
         /// Add a new appointment to a hairdresser

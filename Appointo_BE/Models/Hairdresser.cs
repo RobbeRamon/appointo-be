@@ -15,6 +15,8 @@ namespace Appointo_BE.Models
         public IList<Treatment> Treatments { get; set; }
         public IList<Appointment> Appointments { get; set; }
 
+        private TimeSpan _maxTimeBetweenAppointments = new TimeSpan(0, 15, 0);
+
         #endregion
 
 
@@ -59,7 +61,7 @@ namespace Appointo_BE.Models
             if (NotInOpeningHours(appointment))
                 return false;
 
-            if (OverlappingWithAppointment(appointment))
+            if (OverlappingWithAppointment(appointment.StartMoment, appointment.EndMoment))
                 return false;
 
             Appointments.Add(appointment);
@@ -91,10 +93,39 @@ namespace Appointo_BE.Models
             Treatments.Remove(treatment);
         }
 
-        //public IList<Time> GetAvailableTimes(List<Treatment> treatments)
-        //{
+        public IList<DateTime> GiveAvailableTimesOnDate(DateTime date, IEnumerable<Treatment> treatments)
+        {
+            IList<DateTime> avaiableTimes = new List<DateTime>();
 
-        //}
+            TimeSpan totalDuration = new TimeSpan();
+            foreach (Treatment tr in treatments) totalDuration = totalDuration.Add(tr.Duration);
+
+            //Time time = OpeningHours.WorkDays.SingleOrDefault(wd => wd.Day == date.DayOfWeek).Hours[0];
+
+            IList<TimeRange> hours = OpeningHours.WorkDays.SingleOrDefault(wd => wd.Day == date.DayOfWeek).Hours;
+
+            if (hours.Count < 1)
+                return avaiableTimes;
+
+            foreach(TimeRange hour in hours)
+            {
+                DateTime closingHour = GiveDateTime(hour.EndTime, date);
+                DateTime startTime = GiveDateTime(hour.StartTime, date);
+                DateTime endTime = startTime.Add(totalDuration);
+
+
+                while (endTime <= closingHour)
+                {
+                    if (!OverlappingWithAppointment(startTime, endTime))
+                        avaiableTimes.Add(startTime);
+
+                    startTime = startTime.Add(_maxTimeBetweenAppointments);
+                    endTime = startTime.Add(totalDuration);
+                }
+            }
+
+            return avaiableTimes;
+        }
 
         //private bool NotInOpeningHours2(Appointment appointment)
         //{
@@ -148,17 +179,30 @@ namespace Appointo_BE.Models
             return new DateTime(date.Year, date.Month, date.Day, time.Hour, time.Minute, time.Second);
         }
 
-        private bool OverlappingWithAppointment(Appointment appointment)
+        //private bool OverlappingWithAppointment(Appointment appointment)
+        //{
+        //    foreach (Appointment a in Appointments)
+        //    {
+        //        if (!(appointment.StartMoment <= a.EndMoment && appointment.EndMoment <= a.StartMoment))
+        //            if (!(appointment.StartMoment >= a.EndMoment && appointment.EndMoment >= a.StartMoment))
+        //                return true;
+        //    }
+
+        //    return false;
+        //}
+
+        private bool OverlappingWithAppointment(DateTime startMoment, DateTime endMoment)
         {
             foreach (Appointment a in Appointments)
             {
-                if (!(appointment.StartMoment <= a.EndMoment && appointment.EndMoment <= a.StartMoment))
-                    if (!(appointment.StartMoment >= a.EndMoment && appointment.EndMoment >= a.StartMoment))
+                if (!(startMoment <= a.EndMoment && endMoment <= a.StartMoment))
+                    if (!(startMoment >= a.EndMoment && endMoment >= a.StartMoment))
                         return true;
             }
 
             return false;
         }
+
 
     }
 }
