@@ -35,6 +35,7 @@ namespace Appointo_BE
 
             services.AddScoped<AppointoDataInitializer>();
             services.AddScoped<IHairdresserRepository, HairdresserRepository>();
+
             // Register the Swagger services
             services.AddOpenApiDocument(c =>
             {
@@ -43,6 +44,7 @@ namespace Appointo_BE
                 c.Version = "v1";
                 c.Description = "An appointment system for hairdressers.";
             }); //for OpenAPI 3.0 else AddSwaggerDocument();
+
 
         }
 

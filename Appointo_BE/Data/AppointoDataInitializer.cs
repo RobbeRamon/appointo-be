@@ -39,8 +39,13 @@ namespace Appointo_BE.Data
                 };
 
                 IList<Treatment> treatments = new List<Treatment>();
-                Treatment treatment = new Treatment("Knippen", new TimeSpan(0, 20, 0));
+                Treatment treatment = new Treatment("Knippen", new TimeSpan(0, 20, 0), TreatmentCategory.MEN, 20);
+                Treatment treatment2 = new Treatment("Knippen", new TimeSpan(0, 20, 0), TreatmentCategory.WOMEN, 30);
+                Treatment treatment3 = new Treatment("Knippen", new TimeSpan(0, 20, 0), TreatmentCategory.CHILDREN, 10);
                 treatments.Add(treatment);
+                treatments.Add(treatment2);
+                treatments.Add(treatment3);
+                
 
                 Appointment appointment = new Appointment(new List<Treatment>() { treatment }, new DateTime(2020, 3, 27, 11,30,0));
 

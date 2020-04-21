@@ -72,7 +72,7 @@ namespace Appointo_BE.Controllers
             Hairdresser hairdresserToCreate = new Hairdresser(hairdresser.Name, hairdresser.Treatments, workDays);
 
             foreach (var i in hairdresser.Treatments)
-                hairdresserToCreate.AddTreatment(new Treatment(i.Name, new TimeSpan(i.Duration.Hours, i.Duration.Minutes, i.Duration.Seconds)));
+                hairdresserToCreate.AddTreatment(new Treatment(i.Name, new TimeSpan(i.Duration.Hours, i.Duration.Minutes, i.Duration.Seconds), i.Category, i.Price));
 
             _hairdresserRepository.Add(hairdresserToCreate);
             _hairdresserRepository.SaveChanges();
@@ -286,7 +286,7 @@ namespace Appointo_BE.Controllers
             if (hairdresser == null)
                 return NotFound();
 
-            Treatment treatmenToCreate = new Treatment(treatment.Name, new TimeSpan(treatment.Duration.Hours, treatment.Duration.Minutes, treatment.Duration.Seconds));
+            Treatment treatmenToCreate = new Treatment(treatment.Name, new TimeSpan(treatment.Duration.Hours, treatment.Duration.Minutes, treatment.Duration.Seconds), treatment.Category, treatment.Price);
 
             hairdresser.AddTreatment(treatmenToCreate);
 

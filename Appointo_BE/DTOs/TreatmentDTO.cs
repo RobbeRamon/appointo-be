@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Appointo_BE.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -12,5 +13,9 @@ namespace Appointo_BE.DTOs
         public string Name { get; set; }
         [Required]
         public TimeSpanDTO Duration { get; set; }
+        [Required]
+        public TreatmentCategory Category { get; set; }
+        [Required]
+        public decimal Price { get; set; }
     }
 }
