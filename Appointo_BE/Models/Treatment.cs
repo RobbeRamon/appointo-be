@@ -21,11 +21,11 @@ namespace Appointo_BE.Models
         public string Name { get; set; }
         public TimeSpan Duration { get; set; }
         public TreatmentCategory Category { get; set; }
-        public decimal Price { get; set; }
+        public double Price { get; set; }
 
         protected Treatment() { }
 
-        public Treatment(string name, TimeSpan duration, TreatmentCategory category, decimal price)
+        public Treatment(string name, TimeSpan duration, TreatmentCategory category, double price)
         {
             Name = name;
             Duration = duration;

@@ -16,6 +16,6 @@ namespace Appointo_BE.DTOs
         [Required]
         public TreatmentCategory Category { get; set; }
         [Required]
-        public decimal Price { get; set; }
+        public double Price { get; set; }
     }
 }
