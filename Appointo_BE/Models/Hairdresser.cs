@@ -10,6 +10,7 @@ namespace Appointo_BE.Models
         #region Properties
 
         public int Id { get; set; }
+        public string Email { get; set; }
         public string Name { get; set; }
         public OpeningHours OpeningHours { get; set; }
         public IList<Treatment> Treatments { get; set; }
@@ -22,9 +23,10 @@ namespace Appointo_BE.Models
 
         protected Hairdresser() { }
 
-        public Hairdresser(string name, IList<Treatment> treatments, IList<WorkDay> workDays)
+        public Hairdresser(string name, string email, IList<Treatment> treatments, IList<WorkDay> workDays)
         {
             Name = name;
+            Email = email;
             Treatments = treatments;
             OpeningHours = new OpeningHours { WorkDays = workDays };
             Appointments = new List<Appointment>();

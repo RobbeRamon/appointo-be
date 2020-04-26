@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace Appointo_BE.DTOs
 {
-    public class HairdresserDTO
+    public class RegisterHairdresserDTO
     {
         public string Name { get; set; }
         public string Email { get; set; }
-        public IList<Treatment> Treatments { get; set; }
+        public string Password { get; set; }
+        public IList<TreatmentDTO> Treatments { get; set; }
         public WorkDaysDTO WorkDays { get; set; }
     }
 }

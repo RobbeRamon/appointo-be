@@ -1,5 +1,6 @@
 ﻿using Appointo_BE.Data.Mapper;
 using Appointo_BE.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Appointo_BE.Data
 {
-    public class AppointoDbContext : DbContext
+    public class AppointoDbContext : IdentityDbContext
     {
         public DbSet<Hairdresser> Hairdressers { get; set; }
 

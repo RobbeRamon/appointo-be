@@ -69,9 +69,9 @@ namespace Appointo_BE.Controllers
             workDays.Add(new WorkDay(DayOfWeek.Saturday, hairdresser.WorkDays.Saturday));
             workDays.Add(new WorkDay(DayOfWeek.Sunday, hairdresser.WorkDays.Sunday));
 
-            Hairdresser hairdresserToCreate = new Hairdresser(hairdresser.Name, hairdresser.Treatments, workDays);
+            Hairdresser hairdresserToCreate = new Hairdresser(hairdresser.Name, hairdresser.Email, hairdresser.Treatments, workDays);
 
-            foreach (var i in hairdresser.Treatments)
+            foreach (var i in hairdresser.Treatments.ToList())
                 hairdresserToCreate.AddTreatment(new Treatment(i.Name, new TimeSpan(i.Duration.Hours, i.Duration.Minutes, i.Duration.Seconds), i.Category, i.Price));
 
             _hairdresserRepository.Add(hairdresserToCreate);

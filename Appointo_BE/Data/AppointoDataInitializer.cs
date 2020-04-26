@@ -1,4 +1,5 @@
 ﻿using Appointo_BE.Models;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +10,15 @@ namespace Appointo_BE.Data
     public class AppointoDataInitializer
     {
         private readonly AppointoDbContext _dbContext;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public AppointoDataInitializer(AppointoDbContext dbContext)
+        public AppointoDataInitializer(AppointoDbContext dbContext, UserManager<IdentityUser> userManager)
         {
             _dbContext = dbContext;
+            _userManager = userManager;
         }
 
-        public void InitializeData()
+        public async Task InitializeDataAsync()
         {
             _dbContext.Database.EnsureDeleted();
             
@@ -49,15 +52,23 @@ namespace Appointo_BE.Data
 
                 Appointment appointment = new Appointment(new List<Treatment>() { treatment }, new DateTime(2020, 3, 27, 11,30,0));
 
-                Hairdresser hairdresser1 = new Hairdresser("Hairlounge Marlies", treatments, workDays);
+                Hairdresser hairdresser1 = new Hairdresser("Hairlounge Marlies", "hairloungemarlies@gmail.com", treatments, workDays);
 
                 hairdresser1.AddTreatment(treatment);
                 hairdresser1.AddAppointment(appointment);
 
                 _dbContext.Add(hairdresser1);
+
+                await CreateUser(hairdresser1.Email, "P@ssword1111");
             }
 
             _dbContext.SaveChanges();
+        }
+
+        private async Task CreateUser(string email, string password)
+        {
+            var user = new IdentityUser { UserName = email, Email = email };
+            await _userManager.CreateAsync(user, password);
         }
     }
 }
