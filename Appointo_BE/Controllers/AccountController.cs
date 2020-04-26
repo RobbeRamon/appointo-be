@@ -41,24 +41,24 @@ namespace Appointo_BE.Controllers
         /// Login
         /// </summary>
         /// <param name="model">the login details</param>
-        //[AllowAnonymous]
-        //[HttpPost]
-        //public async Task<ActionResult<String>> CreateToken(LoginDTO model)
-        //{
-        //    var user = await _userManager.FindByNameAsync(model.Email);
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<ActionResult<String>> CreateToken(LoginDTO model)
+        {
+            var user = await _userManager.FindByNameAsync(model.Email);
 
-        //    if (user != null)
-        //    {
-        //        var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
+            if (user != null)
+            {
+                var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
 
-        //        if (result.Succeeded)
-        //        {
-        //            string token = GetToken(user);
-        //            return Created("", token); //returns only the token                    
-        //        }
-        //    }
-        //    return BadRequest();
-        //}
+                if (result.Succeeded)
+                {
+                    string token = GetToken(user);
+                    return Created("", token); //returns only the token                    
+                }
+            }
+            return BadRequest();
+        }
 
         /// <summary>
         /// Register a user
