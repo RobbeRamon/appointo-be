@@ -23,13 +23,23 @@ namespace Appointo_BE.Models
 
         protected Hairdresser() { }
 
-        public Hairdresser(string name, string email, IList<Treatment> treatments, IList<WorkDay> workDays)
+        public Hairdresser(string name, string email)
         {
             Name = name;
             Email = email;
+            Treatments = new List<Treatment>();
+            OpeningHours = new OpeningHours();
+            Appointments = new List<Appointment>();
+            OpeningHours.WorkDays = new List<WorkDay>();
+        }
+
+        public Hairdresser(string name, string email, IList<Treatment> treatments, IList<WorkDay> workDays) : this(name, email)
+        {
+            //Name = name;
+            //Email = email;
             Treatments = treatments;
             OpeningHours = new OpeningHours { WorkDays = workDays };
-            Appointments = new List<Appointment>();
+            //Appointments = new List<Appointment>();
 
             OpeningHours.WorkDays = workDays;
 

@@ -66,8 +66,8 @@ namespace Appointo_BE.Controllers
         /// <param name="model">the user details</param>
         /// <returns></returns>
         [AllowAnonymous]
-        [HttpPost("register")]
-        public async Task<ActionResult<String>> Register(RegisterHairdresserDTO hairdresser)
+        [HttpPost("register2")]
+        public async Task<ActionResult<String>> Register2(RegisterHairdresserDTO2 hairdresser)
         {
             IdentityUser user = new IdentityUser { UserName = hairdresser.Email, Email = hairdresser.Email };
             IList<WorkDay> workDays = new List<WorkDay>();
@@ -83,6 +83,32 @@ namespace Appointo_BE.Controllers
 
             foreach (var i in hairdresser.Treatments.ToList())
                 hairdresserToCreate.AddTreatment(new Treatment(i.Name, new TimeSpan(i.Duration.Hours, i.Duration.Minutes, i.Duration.Seconds), i.Category, i.Price));
+
+            var result = await _userManager.CreateAsync(user, hairdresser.Password);
+
+            if (result.Succeeded)
+            {
+                _hairdresserRepository.Add(hairdresserToCreate);
+                _hairdresserRepository.SaveChanges();
+                string token = GetToken(user);
+                return Created("", token);
+            }
+            return BadRequest();
+        }
+
+        /// <summary>
+        /// Register a user
+        /// </summary>
+        /// <param name="model">the user details</param>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpPost("register")]
+        public async Task<ActionResult<String>> Register(RegisterHairdresserDTO hairdresser)
+        {
+            IdentityUser user = new IdentityUser { UserName = hairdresser.Email, Email = hairdresser.Email };
+
+            Hairdresser hairdresserToCreate = new Hairdresser(hairdresser.Name, hairdresser.Email);
+
 
             var result = await _userManager.CreateAsync(user, hairdresser.Password);
 
