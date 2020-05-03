@@ -43,7 +43,7 @@ namespace Appointo_BE.Controllers
         /// <param name="model">the login details</param>
         [AllowAnonymous]
         [HttpPost]
-        public async Task<ActionResult<String>> CreateToken(LoginDTO model)
+        public async Task<ActionResult<string>> CreateToken(LoginDTO model)
         {
             var user = await _userManager.FindByNameAsync(model.Email);
 
@@ -67,7 +67,7 @@ namespace Appointo_BE.Controllers
         /// <returns></returns>
         [AllowAnonymous]
         [HttpPost("register2")]
-        public async Task<ActionResult<String>> Register2(RegisterHairdresserDTO2 hairdresser)
+        public async Task<ActionResult<string>> Register2(RegisterHairdresserDTO2 hairdresser)
         {
             IdentityUser user = new IdentityUser { UserName = hairdresser.Email, Email = hairdresser.Email };
             IList<WorkDay> workDays = new List<WorkDay>();
@@ -103,7 +103,7 @@ namespace Appointo_BE.Controllers
         /// <returns></returns>
         [AllowAnonymous]
         [HttpPost("register")]
-        public async Task<ActionResult<String>> Register(RegisterHairdresserDTO hairdresser)
+        public async Task<ActionResult<string>> Register(RegisterHairdresserDTO hairdresser)
         {
             IdentityUser user = new IdentityUser { UserName = hairdresser.Email, Email = hairdresser.Email };
 
@@ -129,7 +129,7 @@ namespace Appointo_BE.Controllers
         /// <param name="email">Email.</param>/
         [AllowAnonymous]
         [HttpGet("checkusername")]
-        public async Task<ActionResult<Boolean>> CheckAvailableUserName(string email)
+        public async Task<ActionResult<bool>> CheckAvailableUserName(string email)
         {
             var user = await _userManager.FindByNameAsync(email);
             return user == null;
