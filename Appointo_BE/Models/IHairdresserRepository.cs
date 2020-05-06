@@ -8,6 +8,7 @@ namespace Appointo_BE.Models
     public interface IHairdresserRepository
     {
         Hairdresser GetBy(int id);
+        Hairdresser GetByEmail(string email);
         IEnumerable<Hairdresser> GetAll();
         IEnumerable<Hairdresser> GetBy(string name = null);
         void Add(Hairdresser hairdresser);

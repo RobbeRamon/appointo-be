@@ -36,6 +36,17 @@ namespace Appointo_BE.Data.Repositories
                 .SingleOrDefault(hd => hd.Id == id);
         }
 
+        public Hairdresser GetByEmail(string email)
+        {
+            return _hairdressers.Where(hd => hd.Email == email)
+                                .Include(hd => hd.Appointments)
+                                    .ThenInclude(hd => hd.Treatments)
+                                    .ThenInclude(at => at.Treatment)
+                                .AsNoTracking()
+                                .SingleOrDefault();
+
+        }
+
         public IEnumerable<Hairdresser> GetBy(string name = null)
         {
             return _hairdressers.Where(hd => hd.Name == name)
