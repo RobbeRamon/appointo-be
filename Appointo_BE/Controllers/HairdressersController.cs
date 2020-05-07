@@ -1,6 +1,8 @@
 ﻿using Appointo_BE.DTOs;
+using Appointo_BE.HubConfig;
 using Appointo_BE.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +16,12 @@ namespace Appointo_BE.Controllers
     public class HairdressersController : ControllerBase
     {
         private readonly IHairdresserRepository _hairdresserRepository;
+        private readonly IHubContext<AppointmentHub> _hub;
 
-        public HairdressersController(IHairdresserRepository repo)
+        public HairdressersController(IHairdresserRepository repo, IHubContext<AppointmentHub> hub)
         {
             _hairdresserRepository = repo;
+            _hub = hub;
         }
 
         #region Hairdressers
@@ -203,6 +207,7 @@ namespace Appointo_BE.Controllers
 
             _hairdresserRepository.SaveChanges();
 
+            _hub.Clients.All.SendAsync("appointments", hairdresser.Appointments);
 
             return Ok(new AppointmentDTO() { StartMoment = appointmentToCreate.StartMoment, Treatments = appointmentToCreate.Treatments.Select(tr => tr.Treatment).ToList() }); // CreatedAtAction() not possible --> bug
         }

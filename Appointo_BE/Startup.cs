@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Appointo_BE.Data;
 using Appointo_BE.Data.Repositories;
+using Appointo_BE.HubConfig;
 using Appointo_BE.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -35,6 +36,17 @@ namespace Appointo_BE
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // settings for singal R
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", builder => builder
+                        .WithOrigins("http://localhost:4200")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials());
+            });
+
+
             services.AddControllers();
             services.AddDbContext<AppointoDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("AppointoDbContext")));
@@ -105,6 +117,7 @@ namespace Appointo_BE
             });
 
             services.AddCors(options => options.AddPolicy("AllowAllOrigins", builder => builder.AllowAnyOrigin()));
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -124,6 +137,13 @@ namespace Appointo_BE
             app.UseRouting();
 
             app.UseAuthentication();
+
+            app.UseCors("CorsPolicy");
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<AppointmentHub>("/appointments");
+            });
 
             app.UseAuthorization();
 
