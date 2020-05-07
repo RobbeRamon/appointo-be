@@ -23,7 +23,7 @@ namespace Appointo_BE.Controllers
             this._hairdresserRepository = repo;
         }
 
-        [HttpGet("/appointments")]
+        [HttpGet("appointments")]
         public ActionResult<IEnumerable<Appointment>> GetAppointments()
         {
             Hairdresser hairdresser = _hairdresserRepository.GetByEmail(User.Identity.Name);
@@ -34,7 +34,7 @@ namespace Appointo_BE.Controllers
             return Ok(hairdresser.Appointments.Select(a => new AppointmentDTO() { StartMoment = a.StartMoment, Treatments = a.Treatments.Select(tr => tr.Treatment).ToList() }).ToList());
         }
 
-        [HttpGet("/appointments/{id}")]
+        [HttpGet("Appointments/{id}")]
         public ActionResult<Appointment> GetAppointment(int id)
         {
             Hairdresser hairdresser = _hairdresserRepository.GetByEmail(User.Identity.Name);
@@ -50,7 +50,7 @@ namespace Appointo_BE.Controllers
             return Ok(appointment);
         }
 
-        [HttpDelete("/appointments/{id}")]
+        [HttpDelete("Appointments/{id}")]
         public IActionResult DeleteAppointemnt(int id)
         {
             Hairdresser hairdresser = _hairdresserRepository.GetByEmail(User.Identity.Name);
@@ -67,6 +67,7 @@ namespace Appointo_BE.Controllers
             return NoContent();
         }
 
+        [HttpPost("Treatments")]
         public ActionResult<Treatment> PostTreatment(TreatmentDTO treatment)
         {
             Hairdresser hairdresser = _hairdresserRepository.GetByEmail(User.Identity.Name);
@@ -83,7 +84,7 @@ namespace Appointo_BE.Controllers
             return Ok(treatmenToCreate); 
         }
 
-        [HttpPut("/treatments/{id}")]
+        [HttpPut("Treatments/{id}")]
         public ActionResult<Treatment> PutTreatment(int id, Treatment treatment)
         {
             Hairdresser hairdresser = _hairdresserRepository.GetByEmail(User.Identity.Name);
@@ -103,6 +104,7 @@ namespace Appointo_BE.Controllers
             return NoContent();
         }
 
+        [HttpDelete("Treatments/{id}")]
         public ActionResult DeleteTreatment(int id)
         {
             Hairdresser hairdresser = _hairdresserRepository.GetByEmail(User.Identity.Name);
