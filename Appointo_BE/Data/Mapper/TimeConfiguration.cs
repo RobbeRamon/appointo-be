@@ -9,6 +9,15 @@ namespace Appointo_BE.Data.Mapper
         public void Configure(EntityTypeBuilder<Time> builder)
         {
             builder.HasKey(t => t.Id);
+
+            builder.Property(t => t.Hour)
+                .IsRequired();
+
+            builder.Property(t => t.Minute)
+                .IsRequired();
+
+            builder.Property(t => t.Second)
+                .IsRequired();
         }
     }
 }

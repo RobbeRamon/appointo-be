@@ -9,8 +9,12 @@ namespace Appointo_BE.Data.Mapper
         public void Configure(EntityTypeBuilder<Appointment> builder)
         {
             builder.HasKey(a => a.Id);
-            
-            
+
+            builder.HasMany(a => a.Treatments)
+                    .WithOne()
+                    .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Property(a => a.StartMoment);
         }
     }
 }

@@ -15,13 +15,13 @@ namespace Appointo_BE.Data.Mapper
                     .WithMany(a => a.Treatments)
                     .IsRequired()
                     .HasForeignKey(at => at.AppointmentId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(at => at.Treatment)
                     .WithMany()
                     .IsRequired()
                     .HasForeignKey(at => at.TreatmentId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

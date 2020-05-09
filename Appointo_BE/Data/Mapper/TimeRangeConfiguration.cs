@@ -10,9 +10,9 @@ namespace Appointo_BE.Data.Mapper
         {
             builder.HasKey(tr => tr.Id);
 
-            builder.HasOne(tr => tr.StartTime).WithMany().OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(tr => tr.StartTime).WithMany().IsRequired().OnDelete(DeleteBehavior.NoAction);
 
-            builder.HasOne(tr => tr.EndTime).WithMany().OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(tr => tr.EndTime).WithMany().IsRequired().OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

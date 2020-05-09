@@ -9,6 +9,9 @@ namespace Appointo_BE.Data
         public void Configure(EntityTypeBuilder<OpeningHours> builder)
         {
             builder.HasKey(oh => oh.Id);
+            builder.HasMany(oh => oh.WorkDays)
+                    .WithOne()
+                    .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

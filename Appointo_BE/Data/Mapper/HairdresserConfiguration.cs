@@ -12,9 +12,17 @@ namespace Appointo_BE.Data.Mapper
 
             builder.HasKey(hd => hd.Id);
             builder.HasMany(hd => hd.Appointments)
-                    .WithOne();
+                    .WithOne()
+                    .OnDelete(DeleteBehavior.Cascade);
             builder.HasMany(hd => hd.Treatments)
-                    .WithOne();
+                    .WithOne()
+                    .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Property(hd => hd.Email).IsRequired();
+            builder.Property(hd => hd.Name).IsRequired();
+
+            builder.HasOne(hd => hd.OpeningHours)
+                    .WithMany();
         }
     }
 }

@@ -9,6 +9,18 @@ namespace Appointo_BE.Data.Mapper
         public void Configure(EntityTypeBuilder<Treatment> builder)
         {
             builder.HasKey(tr => tr.Id);
+
+            builder.Property(tr => tr.Name)
+                    .IsRequired();
+
+            builder.Property(tr => tr.Duration)
+                    .IsRequired();
+
+            builder.Property(tr => tr.Price)
+                .IsRequired();
+
+            builder.Property(tr => tr.Category)
+                    .IsRequired();
         }
     }
 }
