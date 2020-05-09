@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Appointo_BE.DTOs
 {
-    public class WorkDaysDTO
+    public class WorkDaysDTO2
     {
         [Required]
         public IList<TimeRange> Monday { get; set; }

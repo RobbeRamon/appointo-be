@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Appointo_BE.DTOs;
 using Appointo_BE.Models;
@@ -121,6 +122,46 @@ namespace Appointo_BE.Controllers
             _hairdresserRepository.SaveChanges();
 
             return NoContent();
+        }
+
+        [HttpGet("Workdays")]
+        public ActionResult<List<WorkDay>> GetWorkDays()
+        {
+            Hairdresser hairdresser = _hairdresserRepository.GetByEmail(User.Identity.Name);
+
+            if (hairdresser == null)
+                return NotFound();
+
+            List<WorkDayDTO> workDays = new List<WorkDayDTO>();
+            
+            foreach (WorkDay workDay in hairdresser.OpeningHours.WorkDays)
+            {
+                workDays.Add(new WorkDayDTO((int)workDay.Day, workDay.Hours.ToList()));
+            }
+
+            return Ok(workDays);
+        }
+        
+
+        [HttpPost("Workdays")]
+        public ActionResult<List<WorkDay>> PostWorkDays(IList<WorkDayDTO> workDays)
+        {
+            Hairdresser hairdresser = _hairdresserRepository.GetByEmail(User.Identity.Name);
+
+            if (hairdresser == null)
+                return NotFound();
+
+            if (workDays.Any(wd => wd.DayId > 6 || wd.DayId < 0))
+                return BadRequest();
+
+ 
+            foreach (WorkDayDTO workDay in workDays) {
+                hairdresser.ChangeWorkDays(workDay.DayId, workDay.Hours);
+            }
+
+            _hairdresserRepository.SaveChanges();
+
+            return Ok(hairdresser.OpeningHours.WorkDays);
         }
         
     }

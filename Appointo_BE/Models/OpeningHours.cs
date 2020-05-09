@@ -27,12 +27,12 @@ namespace Appointo_BE.Models
             this.WorkDays.Single(wd => wd.Day == day).Hours = hours;
         }
 
-        //private void FillHours()
-        //{
-        //    var days = Enum.GetValues(typeof(DayOfWeek));
+        public void FillHours()
+        {
+            var days = Enum.GetValues(typeof(DayOfWeek));
 
-        //    foreach (DayOfWeek day in days)
-        //        WorkDays.Add(new WorkDay(day));
-        //}
+            foreach (DayOfWeek day in days)
+                WorkDays.Add(new WorkDay(day, new List<TimeRange>()));
+        }
     }
 }

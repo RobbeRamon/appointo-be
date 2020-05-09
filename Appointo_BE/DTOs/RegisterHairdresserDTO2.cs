@@ -12,6 +12,6 @@ namespace Appointo_BE.DTOs
         public string Email { get; set; }
         public string Password { get; set; }
         public IList<TreatmentDTO> Treatments { get; set; }
-        public WorkDaysDTO WorkDays { get; set; }
+        public WorkDaysDTO2 WorkDays { get; set; }
     }
 }

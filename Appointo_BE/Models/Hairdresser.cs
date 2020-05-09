@@ -30,7 +30,8 @@ namespace Appointo_BE.Models
             Treatments = new List<Treatment>();
             OpeningHours = new OpeningHours();
             Appointments = new List<Appointment>();
-            OpeningHours.WorkDays = new List<WorkDay>();
+            //OpeningHours.WorkDays = new List<WorkDay>();
+            OpeningHours.FillHours();
         }
 
         public Hairdresser(string name, string email, IList<Treatment> treatments, IList<WorkDay> workDays) : this(name, email)
@@ -137,6 +138,12 @@ namespace Appointo_BE.Models
             }
 
             return avaiableTimes;
+        }
+
+        public void ChangeWorkDays(int dayId, List<TimeRange> hours)
+        {
+            DayOfWeek day = (DayOfWeek)(dayId);
+            this.OpeningHours.EditHoursOfDay(day, hours);
         }
 
         //private bool NotInOpeningHours2(Appointment appointment)

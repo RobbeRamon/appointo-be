@@ -25,24 +25,32 @@ namespace Appointo_BE.Data.Repositories
                 .Include(hd => hd.Appointments)
                     .ThenInclude(hd => hd.Treatments)
                     .ThenInclude(at => at.Treatment)
-                    .Include(hd => hd.OpeningHours)
-                        .ThenInclude(hd => hd.WorkDays)
-                        .ThenInclude(hd => hd.Hours)
-                        .ThenInclude(h => h.StartTime)
-                    .Include(hd => hd.OpeningHours)
-                        .ThenInclude(hd => hd.WorkDays)
-                        .ThenInclude(hd => hd.Hours)
-                        .ThenInclude(h => h.EndTime)
+                .Include(hd => hd.OpeningHours)
+                    .ThenInclude(hd => hd.WorkDays)
+                    .ThenInclude(hd => hd.Hours)
+                    .ThenInclude(h => h.StartTime)
+                .Include(hd => hd.OpeningHours)
+                    .ThenInclude(hd => hd.WorkDays)
+                    .ThenInclude(hd => hd.Hours)
+                    .ThenInclude(h => h.EndTime)
                 .SingleOrDefault(hd => hd.Id == id);
         }
 
         public Hairdresser GetByEmail(string email)
         {
             return _hairdressers.Where(hd => hd.Email == email)
+                                .Include(hd => hd.Treatments)
                                 .Include(hd => hd.Appointments)
                                     .ThenInclude(hd => hd.Treatments)
                                     .ThenInclude(at => at.Treatment)
-                                .AsNoTracking()
+                                .Include(hd => hd.OpeningHours)
+                                    .ThenInclude(hd => hd.WorkDays)
+                                    .ThenInclude(hd => hd.Hours)
+                                    .ThenInclude(h => h.StartTime)
+                                .Include(hd => hd.OpeningHours)
+                                    .ThenInclude(hd => hd.WorkDays)
+                                    .ThenInclude(hd => hd.Hours)
+                                    .ThenInclude(h => h.EndTime)
                                 .SingleOrDefault();
 
         }
