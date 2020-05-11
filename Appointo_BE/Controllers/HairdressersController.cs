@@ -1,6 +1,7 @@
 ﻿using Appointo_BE.DTOs;
 using Appointo_BE.HubConfig;
 using Appointo_BE.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using System;
@@ -256,6 +257,23 @@ namespace Appointo_BE.Controllers
         }
 
         /// <summary>
+        /// Get all treatments of a hairdresser
+        /// </summary>
+        /// <param name="id">The id of the hairdresser</param>
+        /// <returns>An array of treatments</returns>
+        [Authorize]
+        [HttpGet("treatments")]
+        public ActionResult<IEnumerable<Treatment>> GetTreatmentsWithoutId()
+        {
+            Hairdresser hairdresser = _hairdresserRepository.GetByEmail(User.Identity.Name);
+
+            if (hairdresser == null)
+                return NotFound();
+
+            return Ok(hairdresser.Treatments);
+        }
+
+        /// <summary>
         /// Get a treatment of a hairdresser
         /// </summary>
         /// <param name="id">The id of the hairdresser</param>
@@ -275,6 +293,17 @@ namespace Appointo_BE.Controllers
                 return NotFound();
 
             return Ok(treatment);
+        }
+
+        [HttpGet("treatments/{id}")]
+        public ActionResult<Treatment> getTreatmentWithoutId(int id)
+        {
+            Hairdresser hairdresser = _hairdresserRepository.GetBy(id);
+
+            if (hairdresser == null)
+                return NotFound();
+
+            return GetTreatment(hairdresser.Id, id);
         }
 
         /// <summary>

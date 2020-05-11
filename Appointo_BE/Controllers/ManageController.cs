@@ -24,7 +24,7 @@ namespace Appointo_BE.Controllers
             this._hairdresserRepository = repo;
         }
 
-        [HttpGet("appointments")]
+        [HttpGet("Appointments")]
         public ActionResult<IEnumerable<Appointment>> GetAppointments()
         {
             Hairdresser hairdresser = _hairdresserRepository.GetByEmail(User.Identity.Name);
