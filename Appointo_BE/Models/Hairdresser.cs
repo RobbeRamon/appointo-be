@@ -98,6 +98,7 @@ namespace Appointo_BE.Models
             treatment1.Name = treatment.Name;
             treatment1.Duration = treatment.Duration;
             treatment1.Price = treatment.Price;
+            treatment1.Category = treatment.Category;
 
             return true;
         }

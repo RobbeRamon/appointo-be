@@ -9,6 +9,7 @@ namespace Appointo_BE.DTOs
 {
     public class TreatmentDTO
     {
+        public int Id { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]

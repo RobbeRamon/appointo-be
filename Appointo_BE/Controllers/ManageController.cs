@@ -86,7 +86,7 @@ namespace Appointo_BE.Controllers
         }
 
         [HttpPut("Treatments/{id}")]
-        public ActionResult<Treatment> PutTreatment(int id, Treatment treatment)
+        public ActionResult<Treatment> PutTreatment(int id, TreatmentDTO treatment)
         {
             Hairdresser hairdresser = _hairdresserRepository.GetByEmail(User.Identity.Name);
 
@@ -96,7 +96,9 @@ namespace Appointo_BE.Controllers
             if (id != treatment.Id)
                 return BadRequest();
 
-            bool result = hairdresser.UpdateTreatment(treatment);
+            Treatment treatment2 = new Treatment(treatment.Name, new TimeSpan(treatment.Duration.Hours, treatment.Duration.Minutes, treatment.Duration.Seconds), treatment.Category, treatment.Price) { Id = treatment.Id};
+
+            bool result = hairdresser.UpdateTreatment(treatment2);
 
             if (result == false)
                 return NotFound();

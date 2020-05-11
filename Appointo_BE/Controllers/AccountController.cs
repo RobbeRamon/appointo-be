@@ -99,7 +99,7 @@ namespace Appointo_BE.Controllers
         /// <summary>
         /// Register a user
         /// </summary>
-        /// <param name="model">the user details</param>
+        /// <param name="hairdresser">the user details</param>
         /// <returns></returns>
         [AllowAnonymous]
         [HttpPost("register")]
