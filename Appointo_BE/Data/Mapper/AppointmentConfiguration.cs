@@ -11,7 +11,7 @@ namespace Appointo_BE.Data.Mapper
             builder.HasKey(a => a.Id);
 
             builder.HasMany(a => a.Treatments)
-                    .WithOne()
+                    .WithOne(tr => tr.Appointment)
                     .OnDelete(DeleteBehavior.Cascade);
 
             builder.Property(a => a.StartMoment);

@@ -85,6 +85,7 @@ namespace Appointo_BE.Models
 
         public void RemoveAppointment(Appointment appointment)
         {
+            appointment.Treatments = null;
             Appointments.Remove(appointment);
         }
 
