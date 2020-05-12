@@ -9,6 +9,11 @@ namespace Appointo_BE.DTOs
 {
     public class AppointmentDTO
     {
+        public int Id { get; set; }
+        [Required]
+        public string Firstname { get; set; }
+        [Required]
+        public string Lastname { get; set; }
         [Required]
         public DateTime StartMoment { get; set; }
         [Required]

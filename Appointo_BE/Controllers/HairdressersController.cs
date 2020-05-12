@@ -199,7 +199,7 @@ namespace Appointo_BE.Controllers
             foreach (Treatment tr in appointment.Treatments)
                 treatments.Add(hairdresser.GetTreatment(tr.Id));
 
-            Appointment appointmentToCreate = new Appointment(treatments, appointment.StartMoment);
+            Appointment appointmentToCreate = new Appointment(treatments, appointment.StartMoment, appointment.Firstname, appointment.Lastname);
 
             bool result = hairdresser.AddAppointment(appointmentToCreate);
 
@@ -296,7 +296,7 @@ namespace Appointo_BE.Controllers
         }
 
         [HttpGet("treatments/{id}")]
-        public ActionResult<Treatment> getTreatmentWithoutId(int id)
+        public ActionResult<Treatment> GetTreatmentWithoutId(int id)
         {
             Hairdresser hairdresser = _hairdresserRepository.GetBy(id);
 

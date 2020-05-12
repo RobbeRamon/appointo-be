@@ -32,11 +32,11 @@ namespace Appointo_BE.Controllers
             if (hairdresser == null)
                 return NotFound();
 
-            return Ok(hairdresser.Appointments.Select(a => new AppointmentDTO() { StartMoment = a.StartMoment, Treatments = a.Treatments.Select(tr => tr.Treatment).ToList() }).ToList());
+            return Ok(hairdresser.Appointments.Select(a => new AppointmentDTO() {Id = a.Id, Firstname = a.Firstname,Lastname = a.Lastname, StartMoment = a.StartMoment, Treatments = a.Treatments.Select(tr => tr.Treatment).ToList() }).ToList());
         }
 
         [HttpGet("Appointments/{id}")]
-        public ActionResult<Appointment> GetAppointment(int id)
+        public ActionResult<AppointmentDTO> GetAppointment(int id)
         {
             Hairdresser hairdresser = _hairdresserRepository.GetByEmail(User.Identity.Name);
 
@@ -48,7 +48,7 @@ namespace Appointo_BE.Controllers
             if (appointment == null)
                 return NotFound();
 
-            return Ok(appointment);
+            return Ok(new AppointmentDTO() { Id = appointment.Id, Firstname = appointment.Firstname, Lastname = appointment.Lastname, StartMoment = appointment.StartMoment, Treatments = appointment.Treatments.Select(tr => tr.Treatment).ToList() });
         }
 
         [HttpDelete("Appointments/{id}")]

@@ -50,7 +50,7 @@ namespace Appointo_BE.Data
                 treatments.Add(treatment3);
                 
 
-                Appointment appointment = new Appointment(new List<Treatment>() { treatment }, new DateTime(2020, 3, 27, 11,30,0));
+                Appointment appointment = new Appointment(new List<Treatment>() { treatment }, new DateTime(2020, 5, 27, 11,30,0), "Robbe", "Ramon");
 
                 Hairdresser hairdresser1 = new Hairdresser("Hairlounge Marlies", "hairloungemarlies@gmail.com", treatments, workDays);
 
