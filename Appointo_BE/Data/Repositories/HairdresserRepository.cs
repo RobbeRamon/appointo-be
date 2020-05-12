@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Appointo_BE.Data.Repositories
@@ -57,7 +58,7 @@ namespace Appointo_BE.Data.Repositories
 
         public IEnumerable<Hairdresser> GetBy(string name = null)
         {
-            return _hairdressers.Where(hd => hd.Name == name)
+            return _hairdressers.Where(hd => hd.Name.StartsWith(name))
                                 .Include(hd => hd.Treatments)
                                 .Include(hd => hd.Appointments)
                                     .ThenInclude(hd => hd.Treatments)
