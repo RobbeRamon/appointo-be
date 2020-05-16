@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
+using System.Net.Mime;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Appointo_BE.DTOs;
@@ -165,6 +168,125 @@ namespace Appointo_BE.Controllers
 
             return Ok(hairdresser.OpeningHours.WorkDays);
         }
-        
+
+        [Authorize]
+        [HttpPost("UploadBanner"), DisableRequestSizeLimit]
+        public IActionResult UploadBanner()
+        {
+
+            Hairdresser hairdresser = _hairdresserRepository.GetByEmail(User.Identity.Name);
+
+            if (hairdresser == null)
+                return NotFound();
+
+            var file = Request.Form.Files[0];
+            bool result = AddFile(file);
+
+            if (result)
+            {
+                return Ok();
+            } else
+            {
+                return BadRequest();
+            }
+
+            //try
+            //{
+            //    var file = Request.Form.Files[0];
+            //    var folderName = Path.Combine("Resources", "Images");
+            //    var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+
+            //    if (!Directory.Exists(pathToSave + "/" + User.Identity.Name))
+            //    {
+            //        Directory.CreateDirectory(pathToSave + "/" + User.Identity.Name);
+            //    }
+
+            //    if (file.Length > 0)
+            //    {
+            //        var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+            //        folderName = Path.Combine("Resources", "Images", User.Identity.Name);
+            //        pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+            //        var fullPath = Path.Combine(pathToSave, fileName);
+            //        var dbPath = Path.Combine(folderName, fileName);
+
+
+            //        using (var stream = new FileStream(fullPath, FileMode.Create))
+            //        {
+            //            file.CopyTo(stream);
+            //        }
+
+            //        return Ok(fullPath);
+            //    } else
+            //    {
+            //        return BadRequest();
+            //    }
+            //}
+            //catch (Exception e)
+            //{
+            //    return BadRequest();
+            //}
+        }
+
+        [Authorize]
+        [HttpPost("UploadCardImage"), DisableRequestSizeLimit]
+        public ActionResult<string> UploadCardImage()
+        {
+
+            Hairdresser hairdresser = _hairdresserRepository.GetByEmail(User.Identity.Name);
+
+            if (hairdresser == null)
+                return NotFound();
+
+            var file = Request.Form.Files[0];
+            bool result = AddFile(file);
+
+            if (result)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+        private bool AddFile(IFormFile file)
+        {
+            try
+            {
+                var folderName = Path.Combine("Resources", "Images");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+
+                if (!Directory.Exists(pathToSave + "/" + User.Identity.Name))
+                {
+                    Directory.CreateDirectory(pathToSave + "/" + User.Identity.Name);
+                }
+
+                if (file.Length > 0)
+                {
+                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                    folderName = Path.Combine("Resources", "Images", User.Identity.Name);
+                    pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+                    var fullPath = Path.Combine(pathToSave, fileName);
+                    var dbPath = Path.Combine(folderName, fileName);
+
+
+                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
     }
 }
