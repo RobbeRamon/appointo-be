@@ -195,6 +195,9 @@ namespace Appointo_BE.Controllers
             if (hairdresser == null)
                 return NotFound();
 
+            if (appointment.StartMoment < DateTime.Now)
+                return BadRequest();
+
             IList<Treatment> treatments = new List<Treatment>();
             foreach (Treatment tr in appointment.Treatments)
                 treatments.Add(hairdresser.GetTreatment(tr.Id));
