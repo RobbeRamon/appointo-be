@@ -62,28 +62,28 @@ namespace Appointo_BE.Controllers
         /// </summary>
         /// <param name="hairdresser">The object of the hairdresser</param>
         /// <returns>The new hairdresser</returns>
-        [HttpPost]
-        public ActionResult<Hairdresser> PostHairdresser(HairdresserDTO hairdresser)
-        {
-            IList<WorkDay> workDays = new List<WorkDay>();
-            workDays.Add(new WorkDay(DayOfWeek.Monday, hairdresser.WorkDays.Monday));
-            workDays.Add(new WorkDay(DayOfWeek.Tuesday, hairdresser.WorkDays.Tuesday));
-            workDays.Add(new WorkDay(DayOfWeek.Wednesday, hairdresser.WorkDays.Wednesday));
-            workDays.Add(new WorkDay(DayOfWeek.Thursday, hairdresser.WorkDays.Thursday));
-            workDays.Add(new WorkDay(DayOfWeek.Friday, hairdresser.WorkDays.Friday));
-            workDays.Add(new WorkDay(DayOfWeek.Saturday, hairdresser.WorkDays.Saturday));
-            workDays.Add(new WorkDay(DayOfWeek.Sunday, hairdresser.WorkDays.Sunday));
+        //[HttpPost]
+        //public ActionResult<Hairdresser> PostHairdresser(HairdresserDTO hairdresser)
+        //{
+        //    IList<WorkDay> workDays = new List<WorkDay>();
+        //    workDays.Add(new WorkDay(DayOfWeek.Monday, hairdresser.WorkDays.Monday));
+        //    workDays.Add(new WorkDay(DayOfWeek.Tuesday, hairdresser.WorkDays.Tuesday));
+        //    workDays.Add(new WorkDay(DayOfWeek.Wednesday, hairdresser.WorkDays.Wednesday));
+        //    workDays.Add(new WorkDay(DayOfWeek.Thursday, hairdresser.WorkDays.Thursday));
+        //    workDays.Add(new WorkDay(DayOfWeek.Friday, hairdresser.WorkDays.Friday));
+        //    workDays.Add(new WorkDay(DayOfWeek.Saturday, hairdresser.WorkDays.Saturday));
+        //    workDays.Add(new WorkDay(DayOfWeek.Sunday, hairdresser.WorkDays.Sunday));
 
-            Hairdresser hairdresserToCreate = new Hairdresser(hairdresser.Name, hairdresser.Email, hairdresser.Treatments, workDays);
+        //    Hairdresser hairdresserToCreate = new Hairdresser(hairdresser.Name, hairdresser.Email, hairdresser.Treatments, workDays);
 
-            foreach (var i in hairdresser.Treatments.ToList())
-                hairdresserToCreate.AddTreatment(new Treatment(i.Name, new TimeSpan(i.Duration.Hours, i.Duration.Minutes, i.Duration.Seconds), i.Category, i.Price));
+        //    foreach (var i in hairdresser.Treatments.ToList())
+        //        hairdresserToCreate.AddTreatment(new Treatment(i.Name, new TimeSpan(i.Duration.Hours, i.Duration.Minutes, i.Duration.Seconds), i.Category, i.Price));
 
-            _hairdresserRepository.Add(hairdresserToCreate);
-            _hairdresserRepository.SaveChanges();
+        //    _hairdresserRepository.Add(hairdresserToCreate);
+        //    _hairdresserRepository.SaveChanges();
 
-            return CreatedAtAction(nameof(GetHairdresser), new { hairdresserToCreate.Id }, hairdresserToCreate);
-        }
+        //    return CreatedAtAction(nameof(GetHairdresser), new { hairdresserToCreate.Id }, hairdresserToCreate);
+        //}
 
         /// <summary>
         /// Modify a hairdresser
@@ -148,16 +148,16 @@ namespace Appointo_BE.Controllers
         /// </summary>
         /// <param name="id">The id of the hairdresser</param>
         /// <returns>An array of appointments</returns>
-        [HttpGet("{id}/appointments")]
-        public ActionResult<IEnumerable<Appointment>> GetAppointments(int id)
-        {
-            Hairdresser hairdresser = _hairdresserRepository.GetBy(id);
+        //[HttpGet("{id}/appointments")]
+        //public ActionResult<IEnumerable<Appointment>> GetAppointments(int id)
+        //{
+        //    Hairdresser hairdresser = _hairdresserRepository.GetBy(id);
 
-            if (hairdresser == null)
-                return NotFound();
+        //    if (hairdresser == null)
+        //        return NotFound();
 
-            return Ok(hairdresser.Appointments.Select(a => new AppointmentDTO() { StartMoment = a.StartMoment, Treatments = a.Treatments.Select(tr => tr.Treatment).ToList() }).ToList());
-        }
+        //    return Ok(hairdresser.Appointments.Select(a => new AppointmentDTO() { StartMoment = a.StartMoment, Treatments = a.Treatments.Select(tr => tr.Treatment).ToList() }).ToList());
+        //}
 
         /// <summary>
         /// Get an appointment of a haidresser
@@ -165,21 +165,21 @@ namespace Appointo_BE.Controllers
         /// <param name="id">The id of the hairdresser</param>
         /// <param name="appointmentId">The id of the appointment</param>
         /// <returns>The appointment</returns>
-        [HttpGet("{id}/appointments/{appointmentId}")]
-        public ActionResult<Appointment> GetAppointment(int id, int appointmentId)
-        {
-            Hairdresser hairdresser = _hairdresserRepository.GetBy(id);
+        //[HttpGet("{id}/appointments/{appointmentId}")]
+        //public ActionResult<Appointment> GetAppointment(int id, int appointmentId)
+        //{
+        //    Hairdresser hairdresser = _hairdresserRepository.GetBy(id);
 
-            if (hairdresser == null)
-                return NotFound();
+        //    if (hairdresser == null)
+        //        return NotFound();
 
-            Appointment appointment = hairdresser.GetAppointment(appointmentId);
+        //    Appointment appointment = hairdresser.GetAppointment(appointmentId);
 
-            if (appointment == null)
-                return NotFound();
+        //    if (appointment == null)
+        //        return NotFound();
 
-            return Ok(appointment);
-        }
+        //    return Ok(appointment);
+        //}
 
         /// <summary>
         /// Add a new appointment to a hairdresser
@@ -221,23 +221,23 @@ namespace Appointo_BE.Controllers
         /// </summary>
         /// <param name="id">The id of the hairdresser</param>
         /// <param name="appointmentId">The id of the appointment to be deleted</param>
-        [HttpDelete("{id}/appointments/{appointmentId}")]
-        public IActionResult DeleteAppointment(int id, int appointmentId)
-        {
-            Hairdresser hairdresser = _hairdresserRepository.GetBy(id);
+        //[HttpDelete("{id}/appointments/{appointmentId}")]
+        //public IActionResult DeleteAppointment(int id, int appointmentId)
+        //{
+        //    Hairdresser hairdresser = _hairdresserRepository.GetBy(id);
 
-            if (hairdresser == null)
-                return NotFound();
+        //    if (hairdresser == null)
+        //        return NotFound();
 
 
-            Appointment appointment = hairdresser.GetAppointment(appointmentId);
+        //    Appointment appointment = hairdresser.GetAppointment(appointmentId);
 
-            hairdresser.RemoveAppointment(appointment);
+        //    hairdresser.RemoveAppointment(appointment);
 
-            _hairdresserRepository.SaveChanges();
+        //    _hairdresserRepository.SaveChanges();
 
-            return NoContent();
-        }
+        //    return NoContent();
+        //}
 
         #endregion
 
