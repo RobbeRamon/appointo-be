@@ -180,7 +180,7 @@ namespace Appointo_BE.Controllers
                 return NotFound();
 
             var file = Request.Form.Files[0];
-            bool result = AddFile(file);
+            bool result = AddFile(file, hairdresser, true);
 
             if (result)
             {
@@ -238,7 +238,7 @@ namespace Appointo_BE.Controllers
                 return NotFound();
 
             var file = Request.Form.Files[0];
-            bool result = AddFile(file);
+            bool result = AddFile(file, hairdresser, false);
 
             if (result)
             {
@@ -250,7 +250,7 @@ namespace Appointo_BE.Controllers
             }
         }
 
-        private bool AddFile(IFormFile file)
+        private bool AddFile(IFormFile file, Hairdresser hairdresser, bool banner)
         {
             try
             {
@@ -276,6 +276,16 @@ namespace Appointo_BE.Controllers
                         file.CopyTo(stream);
                     }
 
+                    if (banner)
+                    {
+                        hairdresser.BannerPath = dbPath;
+                    } else
+                    {
+                        hairdresser.CardImagePath = dbPath;
+                    }
+
+
+                    _hairdresserRepository.SaveChanges();
                     return true;
                 }
                 else

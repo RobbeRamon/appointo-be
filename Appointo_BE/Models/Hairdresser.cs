@@ -15,8 +15,12 @@ namespace Appointo_BE.Models
         public OpeningHours OpeningHours { get; set; }
         public IList<Treatment> Treatments { get; set; }
         public IList<Appointment> Appointments { get; set; }
+        public string BannerPath { get; set; }
+        public string CardImagePath { get; set; }
+
 
         private TimeSpan _maxTimeBetweenAppointments = new TimeSpan(0, 15, 0);
+
 
         #endregion
 
