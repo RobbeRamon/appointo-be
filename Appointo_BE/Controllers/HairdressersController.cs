@@ -301,7 +301,7 @@ namespace Appointo_BE.Controllers
         [HttpGet("treatments/{id}")]
         public ActionResult<Treatment> GetTreatmentWithoutId(int id)
         {
-            Hairdresser hairdresser = _hairdresserRepository.GetBy(id);
+            Hairdresser hairdresser = _hairdresserRepository.GetByEmail(User.Identity.Name);
 
             if (hairdresser == null)
                 return NotFound();

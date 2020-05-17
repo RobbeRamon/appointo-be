@@ -67,8 +67,8 @@ namespace Appointo_BE.Data
                 // Alexa
 
                 List<TimeRange> workdayB = new List<TimeRange>();
-                workday.Add(new TimeRange(new Time(7, 30, 0), new Time(12, 30, 0)));
-                workday.Add(new TimeRange(new Time(13, 30, 0), new Time(18, 30, 0)));
+                workdayB.Add(new TimeRange(new Time(7, 30, 0), new Time(12, 30, 0)));
+                workdayB.Add(new TimeRange(new Time(13, 30, 0), new Time(18, 30, 0)));
 
 
                 IList<WorkDay> workDaysB = new List<WorkDay>

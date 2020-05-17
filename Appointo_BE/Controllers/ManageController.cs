@@ -166,7 +166,7 @@ namespace Appointo_BE.Controllers
 
             _hairdresserRepository.SaveChanges();
 
-            return Ok(hairdresser.OpeningHours.WorkDays);
+            return Ok(hairdresser.OpeningHours.WorkDays.Select(wd => new WorkDayDTO((int)wd.Day, wd.Hours.ToList())).ToList());
         }
 
         [Authorize]
