@@ -60,41 +60,41 @@ namespace Appointo_BE.Controllers
             return BadRequest();
         }
 
-        /// <summary>
-        /// Register a user
-        /// </summary>
-        /// <param name="model">the user details</param>
-        /// <returns></returns>
-        [AllowAnonymous]
-        [HttpPost("register2")]
-        public async Task<ActionResult<string>> Register2(RegisterHairdresserDTO2 hairdresser)
-        {
-            IdentityUser user = new IdentityUser { UserName = hairdresser.Email, Email = hairdresser.Email };
-            IList<WorkDay> workDays = new List<WorkDay>();
-            workDays.Add(new WorkDay(DayOfWeek.Monday, hairdresser.WorkDays.Monday));
-            workDays.Add(new WorkDay(DayOfWeek.Tuesday, hairdresser.WorkDays.Tuesday));
-            workDays.Add(new WorkDay(DayOfWeek.Wednesday, hairdresser.WorkDays.Wednesday));
-            workDays.Add(new WorkDay(DayOfWeek.Thursday, hairdresser.WorkDays.Thursday));
-            workDays.Add(new WorkDay(DayOfWeek.Friday, hairdresser.WorkDays.Friday));
-            workDays.Add(new WorkDay(DayOfWeek.Saturday, hairdresser.WorkDays.Saturday));
-            workDays.Add(new WorkDay(DayOfWeek.Sunday, hairdresser.WorkDays.Sunday));
+        ///// <summary>
+        ///// Register a user
+        ///// </summary>
+        ///// <param name="model">the user details</param>
+        ///// <returns></returns>
+        //[AllowAnonymous]
+        //[HttpPost("register2")]
+        //public async Task<ActionResult<string>> Register2(RegisterHairdresserDTO2 hairdresser)
+        //{
+        //    IdentityUser user = new IdentityUser { UserName = hairdresser.Email, Email = hairdresser.Email };
+        //    IList<WorkDay> workDays = new List<WorkDay>();
+        //    workDays.Add(new WorkDay(DayOfWeek.Monday, hairdresser.WorkDays.Monday));
+        //    workDays.Add(new WorkDay(DayOfWeek.Tuesday, hairdresser.WorkDays.Tuesday));
+        //    workDays.Add(new WorkDay(DayOfWeek.Wednesday, hairdresser.WorkDays.Wednesday));
+        //    workDays.Add(new WorkDay(DayOfWeek.Thursday, hairdresser.WorkDays.Thursday));
+        //    workDays.Add(new WorkDay(DayOfWeek.Friday, hairdresser.WorkDays.Friday));
+        //    workDays.Add(new WorkDay(DayOfWeek.Saturday, hairdresser.WorkDays.Saturday));
+        //    workDays.Add(new WorkDay(DayOfWeek.Sunday, hairdresser.WorkDays.Sunday));
 
-            Hairdresser hairdresserToCreate = new Hairdresser(hairdresser.Name, hairdresser.Email, hairdresser.Treatments.Select(tr => new Treatment(tr.Name, new TimeSpan(tr.Duration.Hours, tr.Duration.Minutes, tr.Duration.Seconds), tr.Category, tr.Price)).ToList(), workDays);
+        //    Hairdresser hairdresserToCreate = new Hairdresser(hairdresser.Name, hairdresser.Email, hairdresser.Treatments.Select(tr => new Treatment(tr.Name, new TimeSpan(tr.Duration.Hours, tr.Duration.Minutes, tr.Duration.Seconds), tr.Category, tr.Price)).ToList(), workDays);
 
-            foreach (var i in hairdresser.Treatments.ToList())
-                hairdresserToCreate.AddTreatment(new Treatment(i.Name, new TimeSpan(i.Duration.Hours, i.Duration.Minutes, i.Duration.Seconds), i.Category, i.Price));
+        //    foreach (var i in hairdresser.Treatments.ToList())
+        //        hairdresserToCreate.AddTreatment(new Treatment(i.Name, new TimeSpan(i.Duration.Hours, i.Duration.Minutes, i.Duration.Seconds), i.Category, i.Price));
 
-            var result = await _userManager.CreateAsync(user, hairdresser.Password);
+        //    var result = await _userManager.CreateAsync(user, hairdresser.Password);
 
-            if (result.Succeeded)
-            {
-                _hairdresserRepository.Add(hairdresserToCreate);
-                _hairdresserRepository.SaveChanges();
-                string token = GetToken(user);
-                return Created("", token);
-            }
-            return BadRequest();
-        }
+        //    if (result.Succeeded)
+        //    {
+        //        _hairdresserRepository.Add(hairdresserToCreate);
+        //        _hairdresserRepository.SaveChanges();
+        //        string token = GetToken(user);
+        //        return Created("", token);
+        //    }
+        //    return BadRequest();
+        //}
 
         /// <summary>
         /// Register a user

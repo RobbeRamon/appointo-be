@@ -56,6 +56,18 @@ namespace Appointo_BE.Controllers
 
             return Ok(hairdresser);
         }
+        
+        [Authorize]
+        [HttpGet("loggedInUser")]
+        public ActionResult<Hairdresser> GetHairdresserWithoutId()
+        {
+            Hairdresser hairdresser = _hairdresserRepository.GetByEmail(User.Identity.Name);
+
+            if (hairdresser == null)
+                return NotFound();
+
+            return Ok(hairdresser);
+        }
 
         /// <summary>
         /// Add a new hairdresser
@@ -85,41 +97,7 @@ namespace Appointo_BE.Controllers
         //    return CreatedAtAction(nameof(GetHairdresser), new { hairdresserToCreate.Id }, hairdresserToCreate);
         //}
 
-        /// <summary>
-        /// Modify a hairdresser
-        /// </summary>
-        /// <param name="id">The id of the hairdresser</param>
-        /// <param name="hairdresser">The object of the hairdresser</param>
-        /// <returns>The modified hairdresser</returns>
-        [HttpPut("{id}")]
-        public ActionResult<Hairdresser> PutHairdresser(int id, Hairdresser hairdresser)
-        {
-            if (id != hairdresser.Id)
-                return BadRequest();
 
-            _hairdresserRepository.Update(hairdresser);
-            _hairdresserRepository.SaveChanges();
-
-            return NoContent();
-        }
-
-        /// <summary>
-        /// Delete a hairdresser
-        /// </summary>
-        /// <param name="id">The id of the hairdresser to be deleted</param>
-        [HttpDelete("{id}")]
-        public IActionResult DeleteHairdresser(int id)
-        {
-            Hairdresser hairdresser = _hairdresserRepository.GetBy(id);
-
-            if (hairdresser == null)
-                return NotFound();
-
-            _hairdresserRepository.Delete(hairdresser);
-            _hairdresserRepository.SaveChanges();
-
-            return NoContent();
-        }
 
         #endregion
 
@@ -309,78 +287,78 @@ namespace Appointo_BE.Controllers
             return GetTreatment(hairdresser.Id, id);
         }
 
-        /// <summary>
-        /// Add a new treatment to a hairdresser
-        /// </summary>
-        /// <param name="id">The id of the hairdresser</param>
-        /// <param name="treatment">The object of the treatment</param>
-        /// <returns>The new treatment</returns>
-        [HttpPost("{id}/treatments")]
-        public ActionResult<Treatment> PostTreatment(int id, TreatmentDTO treatment)
-        {
-            Hairdresser hairdresser = _hairdresserRepository.GetBy(id);
+        ///// <summary>
+        ///// Add a new treatment to a hairdresser
+        ///// </summary>
+        ///// <param name="id">The id of the hairdresser</param>
+        ///// <param name="treatment">The object of the treatment</param>
+        ///// <returns>The new treatment</returns>
+        //[HttpPost("{id}/treatments")]
+        //public ActionResult<Treatment> PostTreatment(int id, TreatmentDTO treatment)
+        //{
+        //    Hairdresser hairdresser = _hairdresserRepository.GetBy(id);
 
-            if (hairdresser == null)
-                return NotFound();
+        //    if (hairdresser == null)
+        //        return NotFound();
 
-            Treatment treatmenToCreate = new Treatment(treatment.Name, new TimeSpan(treatment.Duration.Hours, treatment.Duration.Minutes, treatment.Duration.Seconds), treatment.Category, treatment.Price);
+        //    Treatment treatmenToCreate = new Treatment(treatment.Name, new TimeSpan(treatment.Duration.Hours, treatment.Duration.Minutes, treatment.Duration.Seconds), treatment.Category, treatment.Price);
 
-            hairdresser.AddTreatment(treatmenToCreate);
+        //    hairdresser.AddTreatment(treatmenToCreate);
 
-            _hairdresserRepository.SaveChanges();
+        //    _hairdresserRepository.SaveChanges();
 
-            return Ok(treatmenToCreate); // CreatedAtAction() not possible --> bug
-        }
+        //    return Ok(treatmenToCreate); // CreatedAtAction() not possible --> bug
+        //}
 
-        /// <summary>
-        /// Modify a treatment of a hairdresser
-        /// </summary>
-        /// <param name="id">The id of the hairdresser</param>
-        /// <param name="treatmentId">The id of the treatment</param>
-        /// <param name="treatment">The object of the treatment</param>
-        [HttpPut("{id}/treatments/{treatmentId}")]
-        public ActionResult<Treatment> PutTreatment(int id, int treatmentId, Treatment treatment)
-        {
-            Hairdresser hairdresser = _hairdresserRepository.GetBy(id);
+        ///// <summary>
+        ///// Modify a treatment of a hairdresser
+        ///// </summary>
+        ///// <param name="id">The id of the hairdresser</param>
+        ///// <param name="treatmentId">The id of the treatment</param>
+        ///// <param name="treatment">The object of the treatment</param>
+        //[HttpPut("{id}/treatments/{treatmentId}")]
+        //public ActionResult<Treatment> PutTreatment(int id, int treatmentId, Treatment treatment)
+        //{
+        //    Hairdresser hairdresser = _hairdresserRepository.GetBy(id);
 
-            if (hairdresser == null)
-                return NotFound();
+        //    if (hairdresser == null)
+        //        return NotFound();
 
-            if (treatmentId != treatment.Id)
-                return BadRequest();
+        //    if (treatmentId != treatment.Id)
+        //        return BadRequest();
 
-            bool result = hairdresser.UpdateTreatment(treatment);
+        //    bool result = hairdresser.UpdateTreatment(treatment);
 
-            if (result == false)
-                return NotFound();
+        //    if (result == false)
+        //        return NotFound();
 
-            _hairdresserRepository.SaveChanges();
-            return NoContent();
-        }
+        //    _hairdresserRepository.SaveChanges();
+        //    return NoContent();
+        //}
 
-        /// <summary>
-        /// Delete a treatment of a hairdresser
-        /// </summary>
-        /// <param name="id">The id of the hairdresser</param>
-        /// <param name="treatmentId">The id of the treatment to be deleted</param>
-        [HttpDelete("{id}/treatments/{treatmentId}")]
-        public IActionResult DeleteTreatment(int id, int treatmentId)
-        {
-            Hairdresser hairdresser = _hairdresserRepository.GetBy(id);
+        ///// <summary>
+        ///// Delete a treatment of a hairdresser
+        ///// </summary>
+        ///// <param name="id">The id of the hairdresser</param>
+        ///// <param name="treatmentId">The id of the treatment to be deleted</param>
+        //[HttpDelete("{id}/treatments/{treatmentId}")]
+        //public IActionResult DeleteTreatment(int id, int treatmentId)
+        //{
+        //    Hairdresser hairdresser = _hairdresserRepository.GetBy(id);
 
-            if (hairdresser == null)
-                return NotFound();
+        //    if (hairdresser == null)
+        //        return NotFound();
 
-            Treatment treatment = hairdresser.GetTreatment(treatmentId);
+        //    Treatment treatment = hairdresser.GetTreatment(treatmentId);
 
-            if (treatment == null)
-                return NotFound();
+        //    if (treatment == null)
+        //        return NotFound();
 
-            hairdresser.RemoveTreatment(treatment);
-            _hairdresserRepository.SaveChanges();
+        //    hairdresser.RemoveTreatment(treatment);
+        //    _hairdresserRepository.SaveChanges();
 
-            return NoContent();
-        }
+        //    return NoContent();
+        //}
 
         #endregion
     }

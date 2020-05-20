@@ -3,14 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http.Headers;
-using System.Net.Mime;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
 using Appointo_BE.DTOs;
 using Appointo_BE.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Appointo_BE.Controllers
@@ -25,6 +21,49 @@ namespace Appointo_BE.Controllers
         public ManageController(IHairdresserRepository repo)
         {
             this._hairdresserRepository = repo;
+        }
+
+        /// <summary>
+        /// Modify a hairdresser
+        /// </summary>
+        /// <param name="id">The id of the hairdresser</param>
+        /// <param name="hairdresser">The object of the hairdresser</param>
+        /// <returns>The modified hairdresser</returns>
+        [HttpPut("Hairdressers")]
+        public ActionResult<Hairdresser> PutHairdresser(Hairdresser hairdresser)
+        {
+            Hairdresser hairdresser2 = _hairdresserRepository.GetByEmail(User.Identity.Name);
+
+            if (hairdresser == null)
+                return NotFound();
+
+            if (hairdresser.Id != hairdresser2.Id)
+                return BadRequest();
+
+            hairdresser2.Name = hairdresser.Name;
+
+            _hairdresserRepository.Update(hairdresser2);
+            _hairdresserRepository.SaveChanges();
+
+            return Ok(hairdresser2);
+        }
+
+        /// <summary>
+        /// Delete a hairdresser
+        /// </summary>
+        /// <param name="id">The id of the hairdresser to be deleted</param>
+        [HttpDelete("Hairdressers/{id}")]
+        public IActionResult DeleteHairdresser(int id)
+        {
+            Hairdresser hairdresser = _hairdresserRepository.GetByEmail(User.Identity.Name);
+
+            if (hairdresser == null)
+                return NotFound();
+
+            _hairdresserRepository.Delete(hairdresser);
+            _hairdresserRepository.SaveChanges();
+
+            return NoContent();
         }
 
         [HttpGet("Appointments")]
