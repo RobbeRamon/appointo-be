@@ -26,7 +26,6 @@ namespace Appointo_BE.Controllers
         /// <summary>
         /// Modify a hairdresser
         /// </summary>
-        /// <param name="id">The id of the hairdresser</param>
         /// <param name="hairdresser">The object of the hairdresser</param>
         /// <returns>The modified hairdresser</returns>
         [HttpPut("Hairdressers")]
@@ -66,6 +65,10 @@ namespace Appointo_BE.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Get all the appointments of the logged in hairdresser
+        /// </summary>
+        /// <returns>List of appointments</returns>
         [HttpGet("Appointments")]
         public ActionResult<IEnumerable<Appointment>> GetAppointments()
         {
@@ -77,6 +80,11 @@ namespace Appointo_BE.Controllers
             return Ok(hairdresser.Appointments.Select(a => new AppointmentDTO() {Id = a.Id, Firstname = a.Firstname,Lastname = a.Lastname, StartMoment = a.StartMoment, Treatments = a.Treatments.Select(tr => tr.Treatment).ToList() }).ToList());
         }
 
+        /// <summary>
+        /// Get an appointment of the logged in hairdresser
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>The appointment</returns>
         [HttpGet("Appointments/{id}")]
         public ActionResult<AppointmentDTO> GetAppointment(int id)
         {
@@ -93,6 +101,10 @@ namespace Appointo_BE.Controllers
             return Ok(new AppointmentDTO() { Id = appointment.Id, Firstname = appointment.Firstname, Lastname = appointment.Lastname, StartMoment = appointment.StartMoment, Treatments = appointment.Treatments.Select(tr => tr.Treatment).ToList() });
         }
 
+        /// <summary>
+        /// Delete an appointment of the logged in hairdresser
+        /// </summary>
+        /// <param name="id"></param>
         [HttpDelete("Appointments/{id}")]
         public IActionResult DeleteAppointemnt(int id)
         {
@@ -110,6 +122,11 @@ namespace Appointo_BE.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Add a new treatment to the logged in hairdresser
+        /// </summary>
+        /// <param name="treatment">The treatment object</param>
+        /// <returns>The created treatment</returns>
         [HttpPost("Treatments")]
         public ActionResult<Treatment> PostTreatment(TreatmentDTO treatment)
         {
@@ -127,6 +144,11 @@ namespace Appointo_BE.Controllers
             return Ok(treatmenToCreate); 
         }
 
+        /// <summary>
+        /// Update a treatment of the logged in haidresser
+        /// </summary>
+        /// <param name="id">treatment id</param>
+        /// <param name="treatment">treatment object</param>
         [HttpPut("Treatments/{id}")]
         public ActionResult<Treatment> PutTreatment(int id, TreatmentDTO treatment)
         {
@@ -148,7 +170,11 @@ namespace Appointo_BE.Controllers
             _hairdresserRepository.SaveChanges();
             return NoContent();
         }
-
+        
+        /// <summary>
+        /// Delete a treatment of a hairdresser
+        /// </summary>
+        /// <param name="id">The treatment id</param>
         [HttpDelete("Treatments/{id}")]
         public ActionResult DeleteTreatment(int id)
         {
@@ -168,6 +194,10 @@ namespace Appointo_BE.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Get the opening hours of the logged in haridresser
+        /// </summary>
+        /// <returns>The workdays of the hairdreser</returns>
         [HttpGet("Workdays")]
         public ActionResult<List<WorkDay>> GetWorkDays()
         {
@@ -186,7 +216,11 @@ namespace Appointo_BE.Controllers
             return Ok(workDays);
         }
         
-
+        /// <summary>
+        /// Add a new workday to the logged in hairdresser
+        /// </summary>
+        /// <param name="workDays">The workday object</param>
+        /// <returns>The workdays of the hairdresser</returns>
         [HttpPost("Workdays")]
         public ActionResult<List<WorkDay>> PostWorkDays(IList<WorkDayDTO> workDays)
         {
@@ -208,7 +242,9 @@ namespace Appointo_BE.Controllers
             return Ok(hairdresser.OpeningHours.WorkDays.Select(wd => new WorkDayDTO((int)wd.Day, wd.Hours.ToList())).ToList());
         }
 
-        [Authorize]
+        /// <summary>
+        /// Upload a new banner
+        /// </summary>
         [HttpPost("UploadBanner"), DisableRequestSizeLimit]
         public IActionResult UploadBanner()
         {
@@ -229,43 +265,11 @@ namespace Appointo_BE.Controllers
                 return BadRequest();
             }
 
-            //try
-            //{
-            //    var file = Request.Form.Files[0];
-            //    var folderName = Path.Combine("Resources", "Images");
-            //    var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-
-            //    if (!Directory.Exists(pathToSave + "/" + User.Identity.Name))
-            //    {
-            //        Directory.CreateDirectory(pathToSave + "/" + User.Identity.Name);
-            //    }
-
-            //    if (file.Length > 0)
-            //    {
-            //        var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-            //        folderName = Path.Combine("Resources", "Images", User.Identity.Name);
-            //        pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-            //        var fullPath = Path.Combine(pathToSave, fileName);
-            //        var dbPath = Path.Combine(folderName, fileName);
-
-
-            //        using (var stream = new FileStream(fullPath, FileMode.Create))
-            //        {
-            //            file.CopyTo(stream);
-            //        }
-
-            //        return Ok(fullPath);
-            //    } else
-            //    {
-            //        return BadRequest();
-            //    }
-            //}
-            //catch (Exception e)
-            //{
-            //    return BadRequest();
-            //}
         }
 
+        /// <summary>
+        /// Upload a card image
+        /// </summary>
         [Authorize]
         [HttpPost("UploadCardImage"), DisableRequestSizeLimit]
         public ActionResult<string> UploadCardImage()

@@ -40,7 +40,7 @@ namespace Appointo_BE.Controllers
         /// <summary>
         /// Login
         /// </summary>
-        /// <param name="model">the login details</param>
+        /// <param name="model">The login details</param>
         [AllowAnonymous]
         [HttpPost]
         public async Task<ActionResult<string>> CreateToken(LoginDTO model)
@@ -60,47 +60,11 @@ namespace Appointo_BE.Controllers
             return BadRequest();
         }
 
-        ///// <summary>
-        ///// Register a user
-        ///// </summary>
-        ///// <param name="model">the user details</param>
-        ///// <returns></returns>
-        //[AllowAnonymous]
-        //[HttpPost("register2")]
-        //public async Task<ActionResult<string>> Register2(RegisterHairdresserDTO2 hairdresser)
-        //{
-        //    IdentityUser user = new IdentityUser { UserName = hairdresser.Email, Email = hairdresser.Email };
-        //    IList<WorkDay> workDays = new List<WorkDay>();
-        //    workDays.Add(new WorkDay(DayOfWeek.Monday, hairdresser.WorkDays.Monday));
-        //    workDays.Add(new WorkDay(DayOfWeek.Tuesday, hairdresser.WorkDays.Tuesday));
-        //    workDays.Add(new WorkDay(DayOfWeek.Wednesday, hairdresser.WorkDays.Wednesday));
-        //    workDays.Add(new WorkDay(DayOfWeek.Thursday, hairdresser.WorkDays.Thursday));
-        //    workDays.Add(new WorkDay(DayOfWeek.Friday, hairdresser.WorkDays.Friday));
-        //    workDays.Add(new WorkDay(DayOfWeek.Saturday, hairdresser.WorkDays.Saturday));
-        //    workDays.Add(new WorkDay(DayOfWeek.Sunday, hairdresser.WorkDays.Sunday));
-
-        //    Hairdresser hairdresserToCreate = new Hairdresser(hairdresser.Name, hairdresser.Email, hairdresser.Treatments.Select(tr => new Treatment(tr.Name, new TimeSpan(tr.Duration.Hours, tr.Duration.Minutes, tr.Duration.Seconds), tr.Category, tr.Price)).ToList(), workDays);
-
-        //    foreach (var i in hairdresser.Treatments.ToList())
-        //        hairdresserToCreate.AddTreatment(new Treatment(i.Name, new TimeSpan(i.Duration.Hours, i.Duration.Minutes, i.Duration.Seconds), i.Category, i.Price));
-
-        //    var result = await _userManager.CreateAsync(user, hairdresser.Password);
-
-        //    if (result.Succeeded)
-        //    {
-        //        _hairdresserRepository.Add(hairdresserToCreate);
-        //        _hairdresserRepository.SaveChanges();
-        //        string token = GetToken(user);
-        //        return Created("", token);
-        //    }
-        //    return BadRequest();
-        //}
-
         /// <summary>
         /// Register a user
         /// </summary>
-        /// <param name="hairdresser">the user details</param>
-        /// <returns></returns>
+        /// <param name="hairdresser">The user details</param>
+        /// <returns>The login details</returns>
         [AllowAnonymous]
         [HttpPost("register")]
         public async Task<ActionResult<string>> Register(RegisterHairdresserDTO hairdresser)
@@ -126,7 +90,7 @@ namespace Appointo_BE.Controllers
         /// Checks if an email is available as username
         /// </summary>
         /// <returns>true if the email is not registered yet</returns>
-        /// <param name="email">Email.</param>/
+        /// <param name="email">Email</param>/
         [AllowAnonymous]
         [HttpGet("checkusername")]
         public async Task<ActionResult<bool>> CheckAvailableUserName(string email)
