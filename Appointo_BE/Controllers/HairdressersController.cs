@@ -57,6 +57,10 @@ namespace Appointo_BE.Controllers
             return Ok(hairdresser);
         }
         
+        /// <summary>
+        /// Get the logged in hairdresser
+        /// </summary>
+        /// <returns>The hairdresser</returns>
         [Authorize]
         [HttpGet("loggedInUser")]
         public ActionResult<Hairdresser> GetHairdresserWithoutId()
@@ -71,6 +75,13 @@ namespace Appointo_BE.Controllers
 
         #endregion
 
+        /// <summary>
+        /// Get the avaiable times for an appointment
+        /// </summary>
+        /// <param name="id">The id of the hairdresser</param>
+        /// <param name="date">The date of the appointment</param>
+        /// <param name="selectedTreatments">The selected treatments</param>
+        /// <returns></returns>
         [HttpPost("{id}/availabletimes")]
         public ActionResult<IList<DateTime>> GetAvailableTimes(int id, DateTime date, IEnumerable<Treatment> selectedTreatments)
         {
