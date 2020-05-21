@@ -71,7 +71,6 @@ namespace Appointo_BE.Data.Repositories
                                     .ThenInclude(hd => hd.WorkDays)
                                     .ThenInclude(hd => hd.Hours)
                                     .ThenInclude(h => h.EndTime)
-                                .AsNoTracking()
                                 .ToList();
         }
     
@@ -79,12 +78,6 @@ namespace Appointo_BE.Data.Repositories
         {
             return _hairdressers
                 .Include(hd => hd.Treatments)
-                .Include(hd => hd.Appointments)
-                    .ThenInclude(hd => hd.Treatments)
-                    .ThenInclude(at => at.Treatment)
-                .Include(hd => hd.OpeningHours)
-                    .ThenInclude(hd => hd.WorkDays)
-                    .ThenInclude(hd => hd.Hours)
                 .AsNoTracking()
                 .ToList();
         }

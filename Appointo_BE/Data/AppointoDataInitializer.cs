@@ -21,8 +21,8 @@ namespace Appointo_BE.Data
         public async Task InitializeDataAsync()
         {
             _dbContext.Database.EnsureDeleted();
-            
-            if(_dbContext.Database.EnsureCreated())
+
+            if (_dbContext.Database.EnsureCreated())
             {
                 // Hairlounge Marlies
 
@@ -46,14 +46,19 @@ namespace Appointo_BE.Data
                 Treatment treatment = new Treatment("Knippen", new TimeSpan(0, 20, 0), TreatmentCategory.MEN, 20);
                 Treatment treatment2 = new Treatment("Knippen", new TimeSpan(0, 20, 0), TreatmentCategory.WOMEN, 30);
                 Treatment treatment3 = new Treatment("Knippen", new TimeSpan(0, 20, 0), TreatmentCategory.CHILDREN, 10);
+                Treatment treatment4 = new Treatment("Drogen", new TimeSpan(0, 10, 0), TreatmentCategory.MEN, 10);
+                Treatment treatment5 = new Treatment("Drogen", new TimeSpan(0, 20, 0), TreatmentCategory.WOMEN, 10);
+
                 treatments.Add(treatment);
                 treatments.Add(treatment2);
                 treatments.Add(treatment3);
+                treatments.Add(treatment4);
+                treatments.Add(treatment5);
                 
 
                 Appointment appointment = new Appointment(new List<Treatment>() { treatment }, new DateTime(2020, 5, 27, 11,30,0), "Robbe", "Ramon");
 
-                Hairdresser hairdresser1 = new Hairdresser("Hairlounge Marlies", "hairloungemarlies@gmail.com", treatments, workDays);
+                Hairdresser hairdresser1 = new Hairdresser("Hairlounge Marlies", "hairloungemarlies@gmail.com", treatments, workDays) { BannerPath = "Resources/Images/hairloungemarlies@gmail.com/48169.jpg" };
 
 
                 hairdresser1.AddAppointment(appointment);
@@ -94,6 +99,7 @@ namespace Appointo_BE.Data
                 Appointment appointmentB = new Appointment(new List<Treatment>() { treatmentB }, new DateTime(2020, 5, 27, 11, 30, 0), "Robbe", "Ramon");
 
                 Hairdresser hairdresser1B = new Hairdresser("Alexa", "alexa@gmail.com", treatmentsB, workDaysB);
+                hairdresser1B.CardImagePath = "Resources/Images/alexa@gmail.com/hairdresser.jpg";
 
 
                 hairdresser1B.AddAppointment(appointmentB);
@@ -101,6 +107,20 @@ namespace Appointo_BE.Data
                 _dbContext.Add(hairdresser1B);
 
                 await CreateUser(hairdresser1B.Email, "P@ssword1111");
+
+                // Placeholder haridressers without treatments and opening hours
+
+                _dbContext.Add(new Hairdresser("Luxury treatments", "luxurytreatments@gmail.com") { CardImagePath = "Resources/Images/luxurytreatments@gmail.com/hairdresser2.jpg" });
+                await CreateUser("luxurytreatments@gmail.com", "P@ssword1111");
+
+                _dbContext.Add(new Hairdresser("Hair to toe", "hairtotoe@gmail.com") { CardImagePath = "Resources/Images/hairtotoe@gmail.com/hairdresser3.jpg" });
+                await CreateUser("hairtotoe@gmail.com", "P@ssword1111");
+
+                _dbContext.Add(new Hairdresser("Coiffure", "coiffure@gmail.com") { CardImagePath = "Resources/Images/coiffure@gmail.com/hairdresser4.jpg" });
+                await CreateUser("coiffure@gmail.com", "P@ssword1111");
+
+                _dbContext.Add(new Hairdresser("De kapperzaak", "dekapperzaak@gmail.com") { CardImagePath = "Resources/Images/dekapperzaak@gmail.com/hairdresser5.jpg" });
+                await CreateUser("dekapperzaak@gmail.com", "P@ssword1111");
 
             }
 
