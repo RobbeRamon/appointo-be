@@ -3,7 +3,7 @@
   <Class Name="Appointo_BE.Models.Appointment">
     <Position X="8.5" Y="0.75" Width="4.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAgAAAAAAQAABAgAAAAA=</HashCode>
+      <HashCode>AAACAEAAAAAAAAAIAAAAAAAAAgAAAAAAQAABAgAAAAA=</HashCode>
       <FileName>Models\Appointment.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -17,8 +17,8 @@
       <FileName>Models\AppointmentTreatment.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Treatment" />
       <Property Name="Appointment" />
+      <Property Name="Treatment" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Appointo_BE.Models.ExtensionMethods">
@@ -30,33 +30,27 @@
   </Class>
   <Class Name="Appointo_BE.Models.Hairdresser">
     <Position X="2" Y="4" Width="5.25" />
-    <AssociationLine Name="Appointments" Type="Appointo_BE.Models.Appointment" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="6" Y="4" />
-        <Point X="6" Y="3.625" />
-        <Point X="12.312" Y="3.625" />
-        <Point X="12.312" Y="3.074" />
-      </Path>
+    <AssociationLine Name="Appointments" Type="Appointo_BE.Models.Appointment">
       <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
         <Position X="0.1" Y="0.164" Height="0.182" Width="2.322" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>gABCRAAAAAAAQAAAAAAQAAUAQAACAAAAAAgABgAAAAA=</HashCode>
+      <HashCode>gABCRABAACIAQAAAAAASAAUAQAACAAAECAgARgAAAAA=</HashCode>
       <FileName>Models\Hairdresser.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="OpeningHours" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
-      <Property Name="Appointments" />
       <Property Name="Treatments" />
+      <Property Name="Appointments" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Appointo_BE.Models.OpeningHours">
     <Position X="10" Y="5" Width="4" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAIAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAAAAAAAAIAAAAAAQAAACAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\OpeningHours.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -72,9 +66,9 @@
     <Lollipop Position="0.315" Collapsed="true" />
   </Class>
   <Class Name="Appointo_BE.Models.Treatment">
-    <Position X="3.25" Y="8.5" Width="3" />
+    <Position X="3.25" Y="11.5" Width="3" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAACAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAAAQACAAAAAAAAAAQAAAAAAAAAAAAAAAAACAA=</HashCode>
       <FileName>Models\Treatment.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -84,14 +78,11 @@
       <HashCode>AAACAAAAIAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\WorkDay.cs</FileName>
     </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Property Name="Hours" />
-    </ShowAsCollectionAssociation>
   </Class>
   <Interface Name="Appointo_BE.Models.IHairdresserRepository">
     <Position X="7.5" Y="8.25" Width="3.75" />
     <TypeIdentifier>
-      <HashCode>gAYAAAAAAAAAAAAAAAAAAAAAAAEIAAAAAgAAAAAAAAA=</HashCode>
+      <HashCode>gAYAAAAAAAAAAAAAAAAAAAAAAAGIAAAAAgAAAAAAAAA=</HashCode>
       <FileName>Models\IHairdresserRepository.cs</FileName>
     </TypeIdentifier>
   </Interface>
