@@ -132,7 +132,7 @@ namespace Appointo_BE.Controllers
 
             _hairdresserRepository.SaveChanges();
 
-            _hub.Clients.All.SendAsync("appointments", hairdresser.Appointments);
+            _hub.Clients.All.SendAsync("appointments", hairdresser.Appointments.Select(a => new AppointmentDTO() { Id = a.Id, Firstname = a.Firstname, Lastname = a.Lastname, StartMoment = a.StartMoment, Treatments = a.Treatments.Select(tr => tr.Treatment).ToList() }).ToList());
 
             return Ok(new AppointmentDTO() { StartMoment = appointmentToCreate.StartMoment, Treatments = appointmentToCreate.Treatments.Select(tr => tr.Treatment).ToList() }); // CreatedAtAction() not possible --> bug
         }
