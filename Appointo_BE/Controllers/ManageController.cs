@@ -48,10 +48,11 @@ namespace Appointo_BE.Controllers
         }
 
         /// <summary>
-        /// Deletes the logged in hairdresser
+        /// Delete a hairdresser
         /// </summary>
+        /// <param name="id">The id of the hairdresser to be deleted</param>
         [HttpDelete("Hairdressers/{id}")]
-        public IActionResult DeleteHairdresser()
+        public IActionResult DeleteHairdresser(int id)
         {
             Hairdresser hairdresser = _hairdresserRepository.GetByEmail(User.Identity.Name);
 
