@@ -1,7 +1,6 @@
 ﻿using Appointo_BE.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace Appointo_BE.Data.Mapper
 {

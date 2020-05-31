@@ -1,10 +1,6 @@
 ﻿using Appointo_BE.Models;
-using NJsonSchema;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Appointo_BE.DTOs
 {
