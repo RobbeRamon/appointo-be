@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "type": "mssql",
+      "connectionId": "AppointoDbContext"
+    },
+    "signalr1": {
+      "type": "signalr",
+      "connectionId": "Azure__SignalR__ConnectionString"
+    },
+    "secrets1": {
+      "type": "secrets",
+      "connectionId": "ASPNETCORE_HOSTINGSTARTUP__KEYVAULT__CONFIGURATIONVAULT"
+    }
+  }
+}
